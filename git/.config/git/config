@@ -1,0 +1,14 @@
+[user]
+	# Your username
+	name = <your_username>
+	# Your email
+	email = <your_username>@users.noreply.github.com
+[credential]
+	# Store credentials encrypted in the GNOME keyring (gnome-keyring is
+	# started at login) instead of plaintext ~/.git-credentials.
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[core]
+	editor = micro

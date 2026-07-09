@@ -1,0 +1,38 @@
+# ── Machine-local / regenerated state (never back up) ──
+fish/.config/fish/fish_variables
+fish/.config/fish/fish_history
+fish/.config/fish/completions/
+fish/.config/fish/generated_completions/
+
+# ── Input-method runtime state ──
+input/.config/fcitx/dbus/
+input/.config/ibus/bus/
+
+# ── Secrets / tokens (safety net — should never live here) ──
+*.pem
+*token*
+*secret*
+*credential*
+*.key
+Cookies*
+
+# ── tmux plugins (managed by tpm — reinstalled via prefix + I) ──
+tmux/.config/tmux/plugins/
+
+# ── OS / editor junk ──
+.DS_Store
+*.swp
+*~
+*.bak
+*.save
+*.save.*
+
+# ── App logs / caches ──
+*.log
+input/.config/fcitx5/conf/cached_layouts
+
+# LibreOffice lock files
+.~lock.*#
+
+# Automation script
+auto_rename.sh
