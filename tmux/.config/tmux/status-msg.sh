@@ -7,7 +7,7 @@
 cmd="$1"
 
 case "$cmd" in
-    bash|zsh|fish|sh|dash|tmux|"")
+    bash|zsh|fish|sh|dash|tmux|""|sudo)
         ;;  # just a shell, show the greeting below
     *)
         exit 0

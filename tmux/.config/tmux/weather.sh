@@ -4,7 +4,7 @@
 # If you want to have a specific location, you can set LOCATION variable with your IP or location exactly. We use your IP network for default.
 LOCATION=""
 
-f=/tmp/.tmux_weather
+f=/dev/shm/.tmux_weather
 max_age=900
 
 now=$(date +%s)

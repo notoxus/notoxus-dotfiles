@@ -1,4 +1,4 @@
-# dotfiles (private)
+# dotfiles
 
 - Personal dotfiles for a **CachyOS + niri (Wayland)** setup. Managed with a
 plain `install.sh` (no external tools required) that symlinks everything
