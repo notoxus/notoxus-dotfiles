@@ -50,6 +50,7 @@ MANIFEST=(
   "input|input/.config/fcitx5/conf/lotus-custom-keymap.conf|.config/fcitx5/conf/lotus-custom-keymap.conf"
   "input|input/.config/ibus|.config/ibus"
   "desktop|desktop/.config/gtk-3.0|.config/gtk-3.0"
+  "desktop|desktop/.config/gtk-4.0|.config/gtk-4.0"
   "desktop|desktop/.config/cachyos|.config/cachyos"
   "desktop|desktop/.config/mimeapps.list|.config/mimeapps.list"
   "desktop|desktop/.config/user-dirs.dirs|.config/user-dirs.dirs"
