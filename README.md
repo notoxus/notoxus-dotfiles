@@ -22,6 +22,10 @@ those specific files redacted is what gets shared publicly — see the
 
 *Or you can also see it in my repo at [reference](reference/laustoic-niri)*
 
+## Configured keyboard shotcut
+
+[Click here](keymap.md)
+
 ## Layout
 
 Each top-level folder is a **package** whose contents mirror `$HOME`.
