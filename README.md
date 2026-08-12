@@ -1,36 +1,41 @@
-# dotfiles
+# Notoxus Dotfiles
 
-- Personal dotfiles for a **CachyOS + niri (Wayland)** setup. Managed with a
-plain `install.sh` (no external tools required) that symlinks everything
-into `$HOME`.
+- Personal dotfiles for my Arch-based Linux environments.
 
-- **This repo is private and contains real personal data** (noctalia
-location, fcitx5-lotus macros/keymaps). A separate, sanitized copy with
-those specific files redacted is what gets shared publicly — see the
-"public" repo instead if you're not me.
+- The repository uses a small custom installer to manage configuration files
+through symbolic links. Each component is independent and can be installed
+without relying on a dotfile manager such as GNU Stow or chezmoi.
 
-- Specific:
+## Specific:
 
-| Type                 |  Name                                 |         
-|----------------------|---------------------------------------|
-| `Distro`             | CachyOS (or any arch bases)           |
-| `DE / WM`            | niri                                  |
-| `Environment`        | Wayland                               |
-| `Shell`              | Fish (Noctalia shell)                 |
+| Type                 |  Name                                           |         
+|----------------------|-------------------------------------------------|
+| `Distro`             | Arch (or any Arch-base)                         |
+| `DE / WM`            | KDE plasma and niri (if you like tilling style) |
+| `Environment`        | Wayland                                         |
+| `Shell`              | zsh (Noctalia shell if you use tilling config)  |
 
 - Reference source: [laustoic's niri config](https://www.dropbox.com/scl/fo/xwjeeuv3wvqhnwwpkxhz9/ACSVE2_nFgNaQCgpNYBtIZ8?rlkey=475yrtu6v1h4v9xvv8n3ld6ul&st=yswpla9h&e=1&dl=0/)
 
 *Or you can also see it in my repo at [reference](reference/laustoic-niri)*
-
-## Configured keyboard shotcut
+---
+## Configured keyboard shotcut (For my tilling config)
 
 [Click here](keymap.md)
+---
+## Repo structure
 
-## Layout
+Each top-level directory is a component whose contents mirror the location
+they should occupy relative to `$HOME`.
+```text
+ghostty/
+└── .config/
+    └── ghostty/
+        └── config
+```
+Is linked to: **~/.config/ghostty/conf.ghostty**
 
-Each top-level folder is a **package** whose contents mirror `$HOME`.
-`install.sh` reads a small manifest and symlinks each package's files/dirs
-into the matching `$HOME` path — no stow, no dependency to install first.
+- To understand easily:
 
 | Package     | Symlinks to                                   | What is it?                           |
 |-------------|-----------------------------------------------|---------------------------------------|
@@ -59,19 +64,26 @@ other users configure them by hand if they want to).
 
 ## Install (new machine)
 
-```sh
-git clone <this private repo url> ~/dotfiles
+```zsh
+git clone https://github.com/notoxus/notoxus-dotfiles ~/dotfiles
 cd ~/dotfiles
-./install.sh                   # links everything, bootstraps tpm
 ```
 
-Selectively per machine:
+### List available components:
 
-```sh
-./install.sh niri fish tmux    # only these packages
-./install.sh --dry-run         # preview what would happen, no changes
+```zsh
+./install.sh list
+```
+### Install a specific component:
+```zsh
 ./install.sh --unlink niri     # remove symlinks for a package
 ```
+### Mutiple ones
+```zsh
+./install.sh zsh tmux ghostty
+```
+### All of them (That script may chose config files properly)
+./install.sh all
 
 **Conflict handling** — if something already exists at a target path:
 - empty dir / empty or missing file → replaced directly, nothing lost.
@@ -84,14 +96,81 @@ Once you've confirmed a backup isn't needed, `./install.sh --prune-backups`
 previews which backed-up items are byte-identical to the repo (safe to
 delete) vs which still differ (kept either way); add `--yes` to actually
 delete the identical ones.
+tmux
 
-## Tmux customization
+## The tmux configuration includes:
 
-`install.sh` already `chmod +x`'s the scripts below and bootstraps tpm.
-After installing, just run `tmux source ~/.config/tmux/tmux.conf` (or
-restart tmux).
+- Custom key bindings
+- Status bar customization
+- CPU and RAM information
+- Weather information
+- tmux-resurrect
+- tmux-continuum
+- TPM (Tmux Plugin Manager)
+- TPM
 
-- `status-msg.sh`: shows the currently running command, or a time-of-day
-  greeting when the shell is idle.
-- `weather.sh`: fetches current temperature (15 min cache). Edit the city in
-  the `wttr.in/<city>` URL inside the script to change location.
+TPM is used to manage tmux plugins.
+
+After installing the tmux configuration, start tmux and install the declared
+plugins with:
+**Ctrl + B**
+and then:
+**Prefix + I**
+
+Plugins can be updated with:
+
+**Prefix + U**
+
+After modifying tmux.conf, reload it with:
+```zsh
+tmux source-file ~/.config/tmux/tmux.conf
+```
+Instead of (like regularly):
+```zsh
+source ~/.config/tmux/tmux.conf
+```
+tmux.conf is a tmux configuration file, not a shell script.
+
+## Clipboard
+
+The current Ghostty + tmux setup uses (to avoid clipboard conflict):
+```zsh
+set -g set-clipboard off
+```
+This avoids duplicate paste behavior with Ghostty's clipboard handling.
+
+## Configuration Reloading
+
+Different applications use different reload mechanisms.
+
+Zsh
+```zsh
+source ~/.zshrc
+tmux
+tmux source-file ~/.config/tmux/tmux.conf
+```
+For other applications, restart the application when necessary.
+
+## Notes
+
+This repository is primarily designed for my own systems.
+
+Some components may require additional packages, fonts, plugins, or
+application-specific dependencies that are not installed automatically by
+install.sh.
+
+The installer intentionally focuses on one job:
+
+select component
+      ↓
+backup conflicting files
+      ↓
+create symbolic links
+
+It is not intended to be a complete system provisioning tool.
+
+### What are these dependencies?
+
+## License
+
+Personal configuration files. Use whatever is useful.

@@ -1,0 +1,12 @@
+# Shell scripts/configs
+*.sh   text eol=lf
+*.bash text eol=lf
+*.zsh  text eol=lf
+*.fish text eol=lf
+
+# Common config formats
+*.conf text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf
+*.json text eol=lf
