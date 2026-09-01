@@ -23,15 +23,8 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
-# Directories that are part of the repository but are not dotfile components.
-EXCLUDED_COMPONENTS=(
-  "reference"
-  ".git"
-)
-
 # Components that should not be installed by `./install.sh all`.
 OPTIONAL_COMPONENTS=(
-  "alacritty"
   "niri"
   "noctalia"
   "umbriel"
@@ -65,10 +58,6 @@ is_excluded() {
   # Repository metadata and local agent state are never installable components.
   [[ "$name" == .* ]] && return 0
 
-  for excluded in "${EXCLUDED_COMPONENTS[@]}"; do
-    [[ "$name" == "$excluded" ]] && return 0
-  done
-
   return 1
 }
 
@@ -85,13 +74,14 @@ is_optional() {
 
 
 get_components() {
-  find "$DOTFILES_DIR" \
-    -maxdepth 1 \
-    -mindepth 1 \
-    -type d \
-    ! -empty \
-    -printf '%f\n' |
-    sort
+  local dir
+
+  for dir in "$DOTFILES_DIR"/*/; do
+    [[ -d "$dir" ]] || continue
+    [[ -n "$(find "$dir" -type f -print -quit)" ]] || continue
+
+    basename "$dir"
+  done | sort
 }
 
 
@@ -120,6 +110,7 @@ list_components() {
 link_file() {
   local src="$1"
   local dest="$2"
+  local backup
 
   mkdir -p "$(dirname "$dest")"
 
@@ -131,11 +122,12 @@ link_file() {
 
   # Something else exists at the destination -> back it up.
   if [[ -e "$dest" || -L "$dest" ]]; then
-    mkdir -p "$BACKUP_DIR"
+    backup="$BACKUP_DIR/${dest#"$HOME"/}"
+    mkdir -p "$(dirname "$backup")"
 
-    mv "$dest" "$BACKUP_DIR/"
+    mv "$dest" "$backup"
 
-    echo "  [backup]  $dest -> $BACKUP_DIR/"
+    echo "  [backup]  $dest -> $backup"
   fi
 
   ln -s "$src" "$dest"
@@ -148,7 +140,9 @@ install_component() {
   local component="$1"
   local component_dir="$DOTFILES_DIR/$component"
 
-  if [[ ! -d "$component_dir" ]] || is_excluded "$component"; then
+  if [[ ! -d "$component_dir" ]] ||
+     is_excluded "$component" ||
+     [[ -z "$(find "$component_dir" -type f -print -quit)" ]]; then
     echo "Unknown component: $component" >&2
     echo >&2
     echo "Available components:" >&2
@@ -179,19 +173,14 @@ case "$1" in
     ;;
 
   all)
-    for dir in "$DOTFILES_DIR"/*/; do
-      [[ -d "$dir" ]] || continue
-
-      dir="${dir%/}"
-      name="$(basename "$dir")"
-
+    while IFS= read -r name; do
       is_excluded "$name" && continue
 
       # Skip optional components when installing everything.
       is_optional "$name" && continue
 
       install_component "$name"
-    done
+    done < <(get_components)
 
     exit 0
     ;;

@@ -1,0 +1,58 @@
+#!/usr/bin/env zsh
+
+show_usage() {
+  cat <<'EOF'
+Usage:
+  keys g    Search Ghostty's default keybindings
+  keys t    Show how to open tmux's built-in keybinding help
+EOF
+}
+
+case "${1:-}" in
+  g|ghostty)
+    if (( ! $+commands[ghostty] )); then
+      print -u2 "keys: ghostty is not installed"
+      exit 1
+    fi
+
+    if (( ! $+commands[fzf] )); then
+      print -u2 "keys: fzf is not installed"
+      exit 1
+    fi
+
+    ghostty +list-keybinds --default |
+      awk '
+        /^keybind = / {
+          line = $0
+          sub(/^keybind = /, "", line)
+
+          # Find the separator while preserving keys such as ctrl+=.
+          if (match(line, /=[[:alpha:]_]/)) {
+            key = substr(line, 1, RSTART - 1)
+            action = substr(line, RSTART + 1)
+            printf "%-24s %s\n", key, action
+          }
+        }
+      ' |
+      fzf \
+        --prompt='Ghostty keybinds > ' \
+        --layout=reverse \
+        --border \
+        --info=inline \
+        --header='KEY                      ACTION'
+    ;;
+
+  t|tmux)
+    print "Inside tmux, press Ctrl+B, release it, then press ?"
+    ;;
+
+  -h|--help|"")
+    show_usage
+    ;;
+
+  *)
+    print -u2 "keys: unknown target: $1"
+    show_usage >&2
+    exit 2
+    ;;
+esac
