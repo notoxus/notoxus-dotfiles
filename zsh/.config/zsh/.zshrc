@@ -27,6 +27,15 @@ setopt SHARE_HISTORY
 # ── Completion & editing ──────────────────────────────────────────
 bindkey -e
 
+# Make the physical Delete key delete the character under the cursor.
+# Use terminfo for the active terminal (including tmux), with the usual
+# escape sequence as a fallback for terminals that do not publish kdch1.
+zmodload zsh/terminfo 2>/dev/null
+if [[ -n "${terminfo[kdch1]-}" ]]; then
+  bindkey -- "${terminfo[kdch1]}" delete-char
+fi
+bindkey -- $'\e[3~' delete-char
+
 autoload -Uz compinit
 compinit -d "$ZDOTDIR/.zcompdump"
 

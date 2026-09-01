@@ -135,6 +135,13 @@ The tmux configuration includes custom bindings, a status bar, CPU and memory
 indicators, weather, TPM, tmux-resurrect, and tmux-continuum. Mouse support is
 enabled, and copy-mode can send copied text to the outer terminal clipboard.
 
+Clipboard and selection work in both styles:
+
+- Drag normally to select with tmux; releasing the mouse copies the selection.
+- Hold `Shift` while dragging to use Ghostty's native selection instead.
+- `Ctrl+Shift+C` and `Ctrl+Shift+V` remain Ghostty's copy/paste shortcuts.
+- In tmux copy-mode, press `v` to select and `y` to copy.
+
 Install TPM plugins from inside tmux with `Ctrl+B`, then `I`. Update them with
 `Ctrl+B`, then `U`.
 

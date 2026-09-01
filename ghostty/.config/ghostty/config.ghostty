@@ -43,4 +43,7 @@ cursor-style = underline
 cursor-style-blink = false
 # --- Mouse / clipboard ---
 mouse-hide-while-typing = true
+# Always reserve Shift+drag for native terminal selection, even when tmux
+# has mouse reporting enabled. Plain drag remains available to tmux.
+mouse-shift-capture = never
 copy-on-select = true
