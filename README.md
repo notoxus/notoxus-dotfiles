@@ -1,4 +1,4 @@
-# Notoxus Dotfiles
+# Notoxus Dotfiles 🌸
 
 Personal configuration for my Arch-based, Wayland desktop.
 
