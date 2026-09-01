@@ -4,7 +4,7 @@ Personal configuration for my Arch-based, Wayland desktop.
 
 | Area | Current setup |
 |---|---|
-| Distribution | Arch Linux (or any Arch-based distro) --> expected to move to NixOS soon |
+| Distribution | Arch Linux |
 | Window Manager | Niri (primary), Umbriel (experimental) |
 | Shell | Zsh with Starship, zoxide, and fzf |
 | Terminal | Ghostty (daily tasks) and tmux (complex tasks) |
@@ -82,10 +82,31 @@ preserves its path relative to `$HOME`, so files with the same basename do not
 overwrite one another. The installer never merges or deletes existing
 configuration automatically.
 
-The empty `nix/` tree is reserved for a future Home Manager migration. Keep
-`install.sh` until that configuration can reproduce the current setup on a
-clean machine; after that, the installer and this section can be removed
-together.
+The empty `nix/` tree is reserved for learning Nix and a future Home Manager
+migration. No Nix configuration is implemented yet. The first version should
+stay single-machine and reuse the existing KDL, JSON, TOML, and shell files
+instead of rewriting every application setting in Nix:
+
+```text
+nix/
+├── flake.nix                 future entry point
+├── hosts/
+│   └── desktop/
+│       └── default.nix       machine-level Arch/NixOS successor
+├── profiles/
+│   └── desktop.nix           packages and enabled home modules
+└── modules/
+    └── home/
+        ├── niri.nix
+        ├── noctalia.nix
+        ├── ghostty.nix
+        ├── tmux.nix
+        └── zsh.nix
+```
+
+Keep `install.sh` until that future configuration can reproduce the current
+setup on a clean machine; after that, the installer and this section can be
+removed together.
 
 ## Shortcut discovery
 
@@ -96,15 +117,20 @@ After installing the `zsh` component, use:
 
 ```zsh
 keys g
+keys -n
 keys t
 ```
 
 - `keys g` opens a searchable list of Ghostty's default keybindings with fzf.
+- `keys -n` opens a searchable list generated from the installed Niri config.
 - `keys t` reminds you to press `Ctrl+B`, then `?`, for tmux's built-in help.
 - In Niri, press `Mod+Shift+Esc` (`Mod` is the Super key) to open its hotkey
   overlay.
 
-`keys g` requires `ghostty` and `fzf`; `keys t` only prints the tmux reminder.
+`keys g` requires `ghostty` and `fzf`; `keys -n` requires an installed Niri
+config and falls back to plain output when `fzf` is unavailable; `keys t` only
+prints the tmux reminder. The short options also accept `keys -g` and `keys -t`
+for consistency.
 
 ## Shell workflow
 
@@ -156,9 +182,9 @@ it with the shell's `source` command.
 
 ## Compositor notes
 
-Niri is the primary compositor and uses the Noctalia v4 configuration. KDE
-Plasma remains the stable fallback. Umbriel is experimental and currently
-targets the Noctalia v5 IPC (`noctalia msg ...`).
+Niri is the primary compositor and uses the Noctalia v4 configuration. Umbriel
+is experimental and currently targets the Noctalia v5 IPC
+(`noctalia msg ...`).
 
 ## License
 

@@ -20,10 +20,10 @@
         "pinnedApps": [],
         "position": "center",
         "screenshotAnnotationTool": "",
-        "showCategories": true,
+        "showCategories": false,
         "showIconBackground": false,
         "sortByMostUsed": true,
-        "terminalCommand": "alacritty -e",
+        "terminalCommand": "ghostty -e",
         "viewMode": "list"
     },
     "audio": {
@@ -105,7 +105,7 @@
                     "icon": "rocket",
                     "iconColor": "none",
                     "id": "Launcher",
-                    "useDistroLogo": false
+                    "useDistroLogo": true
                 },
                 {
                     "clockColor": "none",
@@ -115,28 +115,6 @@
                     "id": "Clock",
                     "tooltipFormat": "HH:mm ddd, MMM dd",
                     "useCustomFont": false
-                },
-                {
-                    "compactMode": true,
-                    "diskPath": "/",
-                    "iconColor": "none",
-                    "id": "SystemMonitor",
-                    "showCpuCores": false,
-                    "showCpuFreq": false,
-                    "showCpuTemp": true,
-                    "showCpuUsage": true,
-                    "showDiskAvailable": false,
-                    "showDiskUsage": false,
-                    "showDiskUsageAsPercent": false,
-                    "showGpuTemp": false,
-                    "showLoadAverage": false,
-                    "showMemoryAsPercent": false,
-                    "showMemoryUsage": true,
-                    "showNetworkStats": false,
-                    "showSwapUsage": false,
-                    "textColor": "none",
-                    "useMonospaceFont": true,
-                    "usePadding": false
                 },
                 {
                     "colorizeIcons": false,
@@ -152,7 +130,7 @@
                 {
                     "compactMode": false,
                     "hideMode": "hidden",
-                    "hideWhenIdle": false,
+                    "hideWhenIdle": true,
                     "id": "MediaMini",
                     "maxWidth": 145,
                     "panelShowAlbumArt": true,
@@ -177,8 +155,8 @@
                     "pinned": []
                 },
                 {
-                    "hideWhenZero": false,
-                    "hideWhenZeroUnread": false,
+                    "hideWhenZero": true,
+                    "hideWhenZeroUnread": true,
                     "iconColor": "none",
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
@@ -215,7 +193,7 @@
                     "enableColorization": false,
                     "icon": "noctalia",
                     "id": "ControlCenter",
-                    "useDistroLogo": false
+                    "useDistroLogo": true
                 }
             ]
         }
@@ -357,7 +335,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/<your_username>/.face",
+        "avatarImage": "",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "custom",
@@ -452,7 +430,7 @@
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
         "use12hourFormat": false,
-        "useFahrenheit": true,
+        "useFahrenheit": false,
         "weatherEnabled": true,
         "weatherShowEffects": true,
         "weatherTaliaMascotAlways": false
@@ -639,7 +617,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/<your_username>/Pictures/Wallpapers",
+        "directory": "~/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [],

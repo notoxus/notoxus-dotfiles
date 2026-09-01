@@ -110,6 +110,9 @@ binds {
     Mod+CTRL+F                          { expand-column-to-available-width; }
     Mod+C                               { center-column; }
     Mod+CTRL+C                          { center-visible-columns; }
+    Mod+Comma                           hotkey-overlay-title="Pull window into column" { consume-or-expel-window-left; }
+    Mod+Period                          hotkey-overlay-title="Push window out of column" { consume-or-expel-window-right; }
+    Mod+R                               hotkey-overlay-title="Cycle preset column width" { switch-preset-column-width; }
     Mod+Minus                           { set-column-width "-10%"; }
     Mod+Equal                           { set-column-width "+10%"; }
     Mod+Shift+Minus                     { set-window-height "-10%"; }

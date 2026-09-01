@@ -1,6 +1,7 @@
     layout {
-        gaps 16 // Gap between windows
-        center-focused-column "never" // Don’t auto-center focused column
+        gaps 12 // Compact enough for tiling, while keeping the wallpaper visible
+        center-focused-column "on-overflow"
+        always-center-single-column
 
         background-color "transparent" // <- needed for noctalia-shell to set wallpaper
 
@@ -8,6 +9,24 @@
             proportion 0.33333
             proportion 0.5
             proportion 0.66667
+        }
+
+        // Keep attention on the active window without drawing boxes around
+        // the entire workspace.
+        focus-ring {
+            width 2
+            active-color "#7aa2f7"
+            inactive-color "#00000000"
+        }
+
+        border { off; }
+
+        shadow {
+            on
+            softness 20
+            spread 4
+            offset x=0 y=4
+            color "#00000080"
         }
 
         struts {}
