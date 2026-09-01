@@ -1,0 +1,32 @@
+# Minimal Catppuccin Mocha-flavoured prompt for the Zsh workflow.
+add_newline = false
+command_timeout = 1000
+
+[character]
+success_symbol = "[❯](bold #a6e3a1)"
+error_symbol = "[❯](bold #f38ba8)"
+vimcmd_symbol = "[❮](bold #89b4fa)"
+
+[directory]
+style = "bold #89b4fa"
+truncation_length = 4
+truncate_to_repo = true
+read_only = " 󰌾"
+
+[git_branch]
+symbol = " "
+style = "bold #cba6f7"
+
+[git_status]
+style = "bold #f9e2af"
+
+[cmd_duration]
+min_time = 2000
+format = "took [$duration](bold #fab387) "
+
+[status]
+disabled = false
+format = "[$symbol$status](bold #f38ba8) "
+
+[line_break]
+disabled = false

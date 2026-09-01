@@ -4,19 +4,22 @@ P/s: `Mod` = `Super`.
 
 ---
 
-## niri (WM)
+## Niri (primary compositor)
+
+Umbriel remains in the repository as an experimental alternative. `Mod` is
+`Super` in the primary Niri session.
 
 ### Application
 
 | Keyboard shortcut | Function |
 |---|---|
-| `Mod + Return` | Terminal (Alacritty) |
-| `Mod + Ctrl + Return` | App Launcher (noctalia) |
+| `Mod + Return` | Terminal (Ghostty) |
+| `Mod + Ctrl + Return` | App Launcher (Noctalia) |
 | `Mod + B` | Firefox |
 | `Mod + E` | File Manager (Nautilus) |
-| `Mod + Alt + L` | Lock screen |
-| `Mod + Shift + Q` | Session Menu |
-| `Mod + Shift + Esc` | Show overlay keyboard shortcut |
+| `Mod + Alt + L` | Lock screen (Noctalia) |
+| `Mod + Shift + Q` | Session menu (Noctalia) |
+| `Mod + Shift + Esc` | Show Niri hotkey overlay |
 
 ### Media & Brightness
 
@@ -25,7 +28,7 @@ P/s: `Mod` = `Super`.
 | `XF86AudioRaiseVolume` / `LowerVolume` | Volume Up/Down |
 | `XF86AudioMute` | Mute audio |
 | `XF86AudioMicMute` | Mute mic |
-| `XF86AudioNext` / `Prev` | Play previous |
+| `XF86AudioNext` / `Prev` | Next/previous track |
 | `XF86AudioPlay` / `Pause` | Play/Pause |
 | `XF86MonBrightnessUp` / `Down` | Brightness Up/Down |
 
@@ -35,11 +38,11 @@ P/s: `Mod` = `Super`.
 |---|---|
 | `Mod + Q` | Close windows |
 | `Mod + ←/→/↑/↓` or `H/L/K/J` | Focus windows direction |
-| `Mod + Ctrl + ←/→/↑/↓` or `H/L/K/J` | Move windows direction |
-| `Mod + Home` / `End` | Focus home or end windows |
-| `Mod + Ctrl + Home` / `End` | Switch home to end window |
-| `Mod + Shift + ←/→/↑/↓` | Focus screen direction |
-| `Mod + Shift + Ctrl + ←/→/↑/↓` | Move window to another one |
+| `Mod + Ctrl + ←/→/↑/↓` or `H/L/K/J` | Move window/column in the workspace |
+| `Mod + Home` / `End` | Focus first/last column |
+| `Mod + Ctrl + Home` / `End` | Move column to first/last |
+| `Mod + Shift + ←/→/↑/↓` | Focus monitor direction |
+| `Mod + Shift + Ctrl + ←/→/↑/↓` | Move column to another monitor |
 
 ### Workspace
 
@@ -50,38 +53,45 @@ P/s: `Mod` = `Super`.
 | `Mod + Tab` | Previous Workspace |
 | `Mod + Wheel Scroll` | Switch workspace |
 | `Mod + Ctrl + Wheel Scroll` | Move window to workspace |
-| `Mod + Wheel Left/Right` | Focus windows direction |
+| `Mod + Wheel Left/Right` | Focus column direction |
 
 ### Layout
 
 | Keyboard shortcut | Function |
 |---|---|
-| `Mod + Ctrl + F` | Expand maximum width |
-| `Mod + C` | Align centre |
-| `Mod + Ctrl + C` | Căn giữa tất cả cột đang hiện |
-| `Mod + -` / `=` | Increase/Decrease window width (10%) |
-| `Mod + Shift + -` / `=` | Increase/Decrease window height (10%) |
-| `Mod + T` | On/off floating mode |
+| `Mod + Ctrl + F` | Expand column to available width |
+| `Mod + C` | Center focused column |
+| `Mod + Ctrl + C` | Center all visible columns |
+| `Mod + -` / `=` | Decrease/increase window width (10%) |
+| `Mod + Shift + -` / `=` | Decrease/increase window height (10%) |
+| `Mod + T` | Toggle floating mode |
 | `Mod + F` | Fullscreen |
-| `Mod + W` | On/off tab for window |
-| `Mod + O` | On/off overview |
+| `Mod + W` | Toggle tabbed column display |
+| `Mod + O` | Toggle overview |
 
 ### Screenshot & utility
 
 | Keyboard shortcut | Function |
 |---|---|
-| `Ctrl + Shift + 1` | Take screenshot full screen |
-| `Ctrl + Shift + 2` | Take screenshot in one area |
-| `Ctrl + Shift + 3` | Take screenshot in one window |
-| `Mod + Esc` | Interrupt keyboard shortcut |
+| `Ctrl + Shift + 1` | Select a screenshot region |
+| `Ctrl + Shift + 2` | Screenshot the focused monitor |
+| `Ctrl + Shift + 3` | Screenshot the focused window |
+| `Mod + Esc` | Disable an active shortcut inhibitor |
 | `Mod + Shift + P` | Turn screen off |
-| `Ctrl + Alt + Delete` | Exit niri |
+| `Ctrl + Alt + Delete` | Exit Niri |
 
 ---
 
 ## tmux
 
 Prefix: `Ctrl + b` (Can change if you want :) )
+
+### tmux ownership rule
+
+tmux intentionally owns only workflow shortcuts behind the `Ctrl + b`
+prefix. Ghostty owns mouse interaction, manual selection, copy/paste,
+scrolling, and terminal-level shortcuts. tmux owns sessions, windows, panes,
+detach/attach, and its optional keyboard-driven copy-mode history.
 
 ### Chung
 
@@ -98,9 +108,10 @@ Prefix: `Ctrl + b` (Can change if you want :) )
 | `prefix + \|` | Split horizontal (keep present window) |
 | `prefix + -` | Split vertical (keep present window) |
 | `prefix + c` | Create new window (keep present window) |
+| `prefix + n/p` | Next/previous window |
 | `prefix + Tab` | Back to previous used window |
-| `Alt + 1..9` | Switch window directly 1–9 |
-| `Alt + Enter` | Scratch popup session (account for 75%) |
+| `prefix + 1..9` | Switch window directly 1–9 |
+| `prefix + s` | Scratch popup session (75% width) |
 
 ### Pane direction (vim style)
 
@@ -115,8 +126,8 @@ Prefix: `Ctrl + b` (Can change if you want :) )
 |---|---|
 | `prefix + Space` | Change to a next window layout |
 | `prefix + z` | Zoom pane |
-| `prefix + x` | Kill pane (Ask) |
-| `prefix + X` | Kill window (Dont ask) |
+| `prefix + x` | Kill pane (no confirmation) |
+| `prefix + X` | Kill window (no confirmation) |
 
 ### Copy-mode (vim)
 
@@ -130,21 +141,14 @@ Prefix: `Ctrl + b` (Can change if you want :) )
 
 ---
 
-## Alacritty
+## Ghostty
 
 | Keyboard shortcut | Function |
 |---|---|
+| Mouse drag | Select text and copy it automatically |
 | `Ctrl + Shift + C` | Copy |
 | `Ctrl + Shift + V` | Paste |
-| `Ctrl + Shift + F` | Forward search |
-| `Ctrl + Shift + B` | Reverse search |
-| `Ctrl + L` | Clear terminal screen |
-| `Ctrl + 0` | Reset size to default |
 | `Shift + PageUp/PageDown` | Scroll up/down 1 page |
-| `Shift + Home/End` | Scroll home or end buffer |
-| `Shift + Enter` | Send newline literal (TUI/REPL) |
-| `Ctrl + Shift + C` (Vi mode) | Clear selection |
-|  Centre mouse | Paste từ selection |
 
 ---
 

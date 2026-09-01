@@ -2,18 +2,14 @@
 
 - Personal dotfiles for my Arch-based Linux environments.
 
-- The repository uses a small custom installer to manage configuration files
-through symbolic links. Each component is independent and can be installed
-without relying on a dotfile manager such as GNU Stow or chezmoi.
-
 ## Specific:
 
 | Type                 |  Name                                           |         
 |----------------------|-------------------------------------------------|
 | `Distro`             | Arch (or any Arch-base)                         |
-| `DE / WM`            | KDE plasma and niri (if you like tilling style) |
+| `DE / WM`            | Niri primary; KDE Plasma fallback; Umbriel experimental |
 | `Environment`        | Wayland                                         |
-| `Shell`              | zsh (Noctalia shell if you use tilling config)  |
+| `Shell`              | Zsh + Starship + zoxide + fzf                   |
 
 - Reference source: [laustoic's niri config](https://www.dropbox.com/scl/fo/xwjeeuv3wvqhnwwpkxhz9/ACSVE2_nFgNaQCgpNYBtIZ8?rlkey=475yrtu6v1h4v9xvv8n3ld6ul&st=yswpla9h&e=1&dl=0/)
 
@@ -31,26 +27,31 @@ they should occupy relative to `$HOME`.
 ghostty/
 └── .config/
     └── ghostty/
-        └── config
+        └── config.ghostty
 ```
-Is linked to: **~/.config/ghostty/conf.ghostty**
+Is linked to: **~/.config/ghostty/config.ghostty**
 
 - To understand easily:
 
 | Package     | Symlinks to                                   | What is it?                           |
 |-------------|-----------------------------------------------|---------------------------------------|
-| `niri`      | `~/.config/niri/`                             | niri WM (split into `cfg/*.kdl`)      |
-| `noctalia`  | `~/.config/noctalia/`                         | noctalia shell / bar                  |
-| `fish`      | `~/.config/fish/`                             | fish shell config                     |
+| `niri`      | `~/.config/niri/`                             | primary compositor (optional install) |
+| `noctalia`  | `~/.config/noctalia/`                         | primary Niri shell / bar (v4)         |
+| `umbriel`   | `~/.config/umbriel/`                          | experimental compositor config        |
+| `ghostty`   | `~/.config/ghostty/`                          | primary terminal                      |
+| `zsh`       | `~/.config/zsh/` + `~/.zshenv`                | primary shell                         |
+| `starship`  | `~/.config/starship.toml`                     | cross-shell prompt                    |
 | `tmux`      | `~/.config/tmux/` (XDG)                       | tmux + status scripts                 |
-| `alacritty` | `~/.config/alacritty/`                        | terminal                              |
+| `alacritty` | `~/.config/alacritty/`                        | optional fallback terminal            |
 | `micro`     | `~/.config/micro/`                            | editor                                |
 | `input`     | `~/.config/{fcitx,fcitx5,ibus}/`              | input methods (Vietnamese/CJK)        |
 | `desktop`   | `~/.config/{gtk-3.0,cachyos,...}`, mimeapps   | GTK, mime, user-dirs, misc            |
 | `git`       | `~/.config/git/config` (XDG)                  | git config                            |
 
-Everything lives under `~/.config/` — nothing scattered at the top of
-`$HOME`. tmux (≥3.1) and git (≥2.32) both fall back to `$XDG_CONFIG_HOME`
+Application configuration lives under `~/.config/`. The only bootstrap file
+at the top of `$HOME` is `~/.zshenv`, which sets `ZDOTDIR` so Zsh can discover
+`~/.config/zsh/.zprofile` and `~/.config/zsh/.zshrc`. tmux (≥3.1) and git
+(≥2.32) both fall back to `$XDG_CONFIG_HOME`
 automatically when `~/.tmux.conf` / `~/.gitconfig` don't exist; tpm itself
 also detects `~/.config/tmux/tmux.conf` and installs plugins under
 `~/.config/tmux/plugins/` instead of `~/.tmux/`.
@@ -74,31 +75,89 @@ cd ~/dotfiles
 ```zsh
 ./install.sh list
 ```
-### Install a specific component:
+### Install a specific component
+
 ```zsh
-./install.sh --unlink niri     # remove symlinks for a package
+./install.sh niri
 ```
-### Mutiple ones
+
+### Install multiple components
+
 ```zsh
-./install.sh zsh tmux ghostty
+./install.sh zsh starship tmux ghostty
 ```
-### All of them (That script may chose config files properly)
+
+### Install all default components
+
+```zsh
 ./install.sh all
+```
 
 **Conflict handling** — if something already exists at a target path:
-- empty dir / empty or missing file → replaced directly, nothing lost.
-- real existing content → moved into a timestamped
-  `~/.dotfiles-backup-<date>/` folder, *then* linked. Nothing is merged
-  automatically; diff the backup by hand if you want to keep anything from
-  your old config.
 
-Once you've confirmed a backup isn't needed, `./install.sh --prune-backups`
-previews which backed-up items are byte-identical to the repo (safe to
-delete) vs which still differ (kept either way); add `--yes` to actually
-delete the identical ones.
-tmux
+- Existing files or symlinks are moved into a timestamped
+  `~/.dotfiles-backup/<date>/` directory before linking.
+- Nothing is merged or deleted automatically; compare backups manually before
+  removing them.
 
-## The tmux configuration includes:
+The installer currently supports `list`, `all`, `--help`, and one or more
+component names. Unlinking, restoring, and pruning backups are not implemented.
+
+### Compositor roles
+
+`umbriel`, `niri`, and `noctalia` are optional components: `./install.sh all`
+does not install any of them. This repository only prepares configuration; it
+does not install packages, enable services, change the display manager, or
+replace the active KDE session.
+
+Niri is the primary compositor and uses the existing Noctalia v4 configuration.
+KDE remains the stable desktop fallback. Umbriel is kept only for experiments;
+its config targets the Noctalia v5 IPC (`noctalia msg ...`) and should not
+replace the working Niri/KDE sessions until its configuration stabilizes.
+
+## Shell workflow
+
+```text
+Zsh
+├── Starship                  prompt
+├── zoxide                    directory jumping (`z`, `zi`)
+├── fzf                       fuzzy history/files/directories
+├── zsh-autosuggestions       history-based suggestions
+└── zsh-syntax-highlighting   command-line validation/highlighting
+```
+
+Zsh uses its native completion system; Oh My Zsh and its Agnoster theme are no
+longer part of the startup path. Every external integration is guarded, so a
+missing package does not prevent Zsh from starting. The installer only links
+configuration and does not install these dependencies.
+
+## Terminal / tmux ownership
+
+Ghostty is the primary terminal and owns:
+
+- mouse selection and scrolling
+- copy/paste
+- terminal-level shortcuts
+
+tmux is a keyboard-driven multiplexer and owns:
+
+- sessions, windows, and panes
+- detach/attach
+- copy-mode history
+
+The tmux configuration therefore uses:
+
+```tmux
+set -g mouse off
+set -s set-clipboard external
+```
+
+Custom tmux workflow bindings live behind the `Ctrl+B` prefix, so applications
+inside tmux remain free to use `Alt` and other non-prefixed shortcuts.
+
+## tmux
+
+### The tmux configuration includes
 
 - Custom key bindings
 - Status bar customization
@@ -107,7 +166,6 @@ tmux
 - tmux-resurrect
 - tmux-continuum
 - TPM (Tmux Plugin Manager)
-- TPM
 
 TPM is used to manage tmux plugins.
 
@@ -131,22 +189,18 @@ source ~/.config/tmux/tmux.conf
 ```
 tmux.conf is a tmux configuration file, not a shell script.
 
-## Clipboard
-
-The current Ghostty + tmux setup uses (to avoid clipboard conflict):
-```zsh
-set -g set-clipboard off
-```
-This avoids duplicate paste behavior with Ghostty's clipboard handling.
-
 ## Configuration Reloading
 
 Different applications use different reload mechanisms.
 
 Zsh
 ```zsh
-source ~/.zshrc
+source ~/.config/zsh/.zshrc
+```
+
 tmux
+
+```zsh
 tmux source-file ~/.config/tmux/tmux.conf
 ```
 For other applications, restart the application when necessary.

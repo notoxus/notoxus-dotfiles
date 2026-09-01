@@ -1,9 +1,3 @@
-# ── Machine-local / regenerated state (never back up) ──
-fish/.config/fish/fish_variables
-fish/.config/fish/fish_history
-fish/.config/fish/completions/
-fish/.config/fish/generated_completions/
-
 # ── Input-method runtime state ──
 input/.config/fcitx/dbus/
 input/.config/ibus/bus/

@@ -1,5 +1,5 @@
 # Ghostty config
-# Install at: ~/.config/ghostty/config
+# Install at: ~/.config/ghostty/config.ghostty
 # --- Font ---
 font-family = JetBrainsMono Nerd Font Mono
 font-family-bold = JetBrainsMono Nerd Font Mono

@@ -32,9 +32,9 @@ EXCLUDED_COMPONENTS=(
 # Components that should not be installed by `./install.sh all`.
 OPTIONAL_COMPONENTS=(
   "alacritty"
-  "fish"
   "niri"
   "noctalia"
+  "umbriel"
 )
 
 
@@ -62,6 +62,9 @@ EOF
 is_excluded() {
   local name="$1"
 
+  # Repository metadata and local agent state are never installable components.
+  [[ "$name" == .* ]] && return 0
+
   for excluded in "${EXCLUDED_COMPONENTS[@]}"; do
     [[ "$name" == "$excluded" ]] && return 0
   done
@@ -86,6 +89,7 @@ get_components() {
     -maxdepth 1 \
     -mindepth 1 \
     -type d \
+    ! -empty \
     -printf '%f\n' |
     sort
 }

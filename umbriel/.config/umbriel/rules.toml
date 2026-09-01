@@ -1,0 +1,29 @@
+# Blur normal application windows.
+[[window_rule]]
+blur = true
+blur_optimized = true
+
+# Noctalia settings and the Umbriel portal picker are regular floating dialogs.
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_size = [1020, 900]
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.UmbrielSharePicker$"
+default_floating = true
+default_size = [800, 600]
+
+# Browser picture-in-picture windows stay unobtrusive in the lower-right corner.
+[[window_rule]]
+match.title = "^(Picture-in-Picture|Picture in picture)$"
+default_floating = true
+default_maximize = false
+default_position = { x = 20, y = 20, anchor = "bottom_right" }
+
+# Let the compositor provide blur behind Noctalia surfaces.
+[[layer_rule]]
+match.namespace = '^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$'
+blur = true
+blur_ignore_alpha = 0.5
+blur_optimized = false
