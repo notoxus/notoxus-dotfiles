@@ -30,9 +30,8 @@ chmod +x ./install
 | `ghostty` | Ghostty and a Nerd Font |
 | `zsh` | Zsh; Starship, fzf, zoxide, and plugins are optional |
 | `tmux` | tmux; Git and curl are optional |
-| `niri` | Niri, Noctalia v5, Fcitx5, and GNOME Keyring |
+| `niri` | Niri and Noctalia v5 |
 | `noctalia` | Noctalia v5 |
-| `input` | Fcitx5 and fcitx5-lotus |
 | `umbriel` | Umbriel and Noctalia v5 |
 
 Run `./install check <component>` for check necessary dependency. If you do not already have these dependencies, follow their upstream installation guides:
@@ -108,16 +107,12 @@ Preview either mode without changing `$HOME`:
 | `desktop` | GTK, MIME, audio, and user-directory preferences |
 | `ghostty` | Primary terminal |
 | `git` | Git setup notes |
-| `input` | Fcitx5 configuration |
 | `niri` | Primary compositor |
 | `noctalia` | Shell and bar for Niri and Umbriel |
 | `starship` | Shell prompt |
 | `tmux` | Terminal multiplexer |
 | `umbriel` | Experimental compositor |
 | `zsh` | Shell configuration and the `keys` helper |
-
-Some files under `input` are application-managed state. Keep private values out
-of public copies of this repository.
 
 ## Shortcut discovery
 

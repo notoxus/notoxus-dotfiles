@@ -4,7 +4,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRIMARY_COMPONENTS=(desktop ghostty git input niri noctalia starship tmux zsh)
+PRIMARY_COMPONENTS=(desktop ghostty git niri noctalia starship tmux zsh)
 COMPONENTS=("${PRIMARY_COMPONENTS[@]}" umbriel)
 
 ACTION="copy"
@@ -30,7 +30,7 @@ Options:
 Examples:
   $0 check zsh tmux ghostty
   $0 all
-  $0 niri noctalia input
+  $0 niri noctalia
   $0 --link all
 EOF
 }
@@ -127,19 +127,9 @@ check_component() {
       ;;
     git)
       ;;
-    input)
-      check_dependency input required fcitx5 Fcitx5
-      verify_manually input required 'fcitx5-lotus engine'
-      ;;
     niri)
       check_dependency niri required niri Niri
-      check_dependency niri optional ghostty 'Ghostty keybinding'
       check_dependency niri required noctalia 'Noctalia v5 CLI'
-      check_dependency niri optional fcitx5 'Fcitx5 autostart'
-      check_dependency niri optional gnome-keyring-daemon 'GNOME Keyring'
-      check_dependency niri optional gsettings 'GSettings CLI'
-      check_dependency niri optional firefox 'Firefox keybinding'
-      check_dependency niri optional nautilus 'Nautilus keybinding'
       ;;
     noctalia)
       check_dependency noctalia required noctalia 'Noctalia v5 CLI'
@@ -156,10 +146,6 @@ check_component() {
     umbriel)
       check_dependency umbriel required umbriel Umbriel
       check_dependency umbriel required noctalia 'Noctalia v5 CLI'
-      check_dependency umbriel optional ghostty 'Ghostty keybinding'
-      check_dependency umbriel optional fcitx5 'Fcitx5 autostart'
-      check_dependency umbriel optional gnome-keyring-daemon 'GNOME Keyring'
-      check_dependency umbriel optional gsettings 'GSettings CLI'
       ;;
     zsh)
       check_dependency zsh required zsh Zsh
