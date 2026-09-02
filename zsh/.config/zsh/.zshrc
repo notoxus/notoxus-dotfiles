@@ -15,21 +15,23 @@ HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
 
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_SAVE_BY_COPY
+
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
-setopt SHARE_HISTORY
+
+unsetopt SHARE_HISTORY
 
 
 # ── Completion & editing ──────────────────────────────────────────
 bindkey -e
 
-# Make the physical Delete key delete the character under the cursor.
-# Use terminfo for the active terminal (including tmux), with the usual
-# escape sequence as a fallback for terminals that do not publish kdch1.
 zmodload zsh/terminfo 2>/dev/null
 if [[ -n "${terminfo[kdch1]-}" ]]; then
   bindkey -- "${terminfo[kdch1]}" delete-char
