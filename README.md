@@ -20,6 +20,7 @@ Personal ricing for my Wayland desktop.
 ```sh
 git clone https://github.com/notoxus/notoxus-dotfiles ~/dotfiles
 cd ~/dotfiles
+chmod +x ./install
 ./install list
 ```
 ## Requirements
