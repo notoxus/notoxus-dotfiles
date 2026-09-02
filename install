@@ -4,28 +4,26 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PRIMARY_COMPONENTS=(desktop ghostty git input niri noctalia starship tmux zsh)
+COMPONENTS=("${PRIMARY_COMPONENTS[@]}" umbriel)
+
+ACTION="copy"
 INSTALL_MODE="copy"
 DRY_RUN=false
-ACTION="install"
-
-OPTIONAL_COMPONENTS=(desktop git input niri noctalia umbriel)
-NON_COMPONENT_DIRS=(docs nix)
 
 
 usage() {
   cat <<EOF
 Usage:
   $0 list
-  $0 check [component... | all]
-  $0 [install] [--copy | --link] [--dry-run] <component... | all>
+  $0 check <component... | all>
+  $0 [--link] [--dry-run] <component... | all>
 
 Commands:
-  list        List available components
-  check       Check local dependencies; never installs anything
-  install     Deploy configuration; copy is the default
+  list        List components
+  check       Check dependencies; 'all' checks every component
 
 Options:
-  --copy      Copy files into HOME
   --link      Symlink files into HOME
   --dry-run   Show file operations without changing HOME
 
@@ -33,12 +31,12 @@ Examples:
   $0 check zsh tmux ghostty
   $0 all
   $0 niri noctalia input
-  $0 --link zsh tmux ghostty
+  $0 --link all
 EOF
 }
 
 
-in_array() {
+contains() {
   local wanted="$1" item
   shift
   for item in "$@"; do
@@ -48,84 +46,36 @@ in_array() {
 }
 
 
-is_optional() {
-  in_array "$1" "${OPTIONAL_COMPONENTS[@]}"
-}
-
-
-is_non_component() {
-  in_array "$1" "${NON_COMPONENT_DIRS[@]}"
-}
-
-
-get_components() {
-  local dir name
-  for dir in "$DOTFILES_DIR"/*/; do
-    [[ -d "$dir" ]] || continue
-    name="$(basename "$dir")"
-    is_non_component "$name" && continue
-    [[ -n "$(find "$dir" -type f -print -quit)" ]] || continue
-    printf '%s\n' "$name"
-  done | sort
-}
-
-
 component_exists() {
-  local name
-  while IFS= read -r name; do
-    [[ "$name" == "$1" ]] && return 0
-  done < <(get_components)
-  return 1
+  contains "$1" "${COMPONENTS[@]}"
 }
 
 
 list_components() {
-  local name
-
-  echo "Default components (installed by 'all'):"
-  while IFS= read -r name; do
-    is_optional "$name" && continue
-    printf '  %s\n' "$name"
-  done < <(get_components)
-
-  echo
-  echo "Optional components (must be named explicitly):"
-  while IFS= read -r name; do
-    is_optional "$name" || continue
-    printf '  %s\n' "$name"
-  done < <(get_components)
+  printf 'Components:\n'
+  printf '  %s\n' "${COMPONENTS[@]}"
+  printf "\nSpecific only:\n  umbriel\n"
 }
 
 
 expand_selection() {
-  local -a requested=("$@") unique=()
-  local -A seen=()
   local name candidate
 
   SELECTED_COMPONENTS=()
-  [[ ${#requested[@]} -gt 0 ]] || requested=(all)
 
-  for name in "${requested[@]}"; do
+  for name in "$@"; do
     if [[ "$name" == "all" ]]; then
-      while IFS= read -r candidate; do
-        is_optional "$candidate" && continue
-        SELECTED_COMPONENTS+=("$candidate")
-      done < <(get_components)
+      for candidate in "${PRIMARY_COMPONENTS[@]}"; do
+        contains "$candidate" "${SELECTED_COMPONENTS[@]}" || SELECTED_COMPONENTS+=("$candidate")
+      done
     elif component_exists "$name"; then
-      SELECTED_COMPONENTS+=("$name")
+      contains "$name" "${SELECTED_COMPONENTS[@]}" || SELECTED_COMPONENTS+=("$name")
     else
       echo "Unknown component: $name" >&2
       echo "Run '$0 list' to see available components." >&2
       exit 1
     fi
   done
-
-  for name in "${SELECTED_COMPONENTS[@]}"; do
-    [[ -n "${seen[$name]+x}" ]] && continue
-    seen["$name"]=1
-    unique+=("$name")
-  done
-  SELECTED_COMPONENTS=("${unique[@]}")
 }
 
 
@@ -184,7 +134,7 @@ check_component() {
     niri)
       check_dependency niri required niri Niri
       check_dependency niri optional ghostty 'Ghostty keybinding'
-      check_dependency niri optional qs 'Quickshell/Noctalia v4'
+      check_dependency niri required noctalia 'Noctalia v5 CLI'
       check_dependency niri optional fcitx5 'Fcitx5 autostart'
       check_dependency niri optional gnome-keyring-daemon 'GNOME Keyring'
       check_dependency niri optional gsettings 'GSettings CLI'
@@ -192,9 +142,7 @@ check_component() {
       check_dependency niri optional nautilus 'Nautilus keybinding'
       ;;
     noctalia)
-      check_dependency noctalia required qs Quickshell
-      check_dependency noctalia optional 'pavucontrol|pwvucontrol' 'volume control UI'
-      verify_manually noctalia required 'Noctalia Shell legacy v4'
+      check_dependency noctalia required noctalia 'Noctalia v5 CLI'
       ;;
     starship)
       check_dependency starship required starship Starship
@@ -207,7 +155,7 @@ check_component() {
       ;;
     umbriel)
       check_dependency umbriel required umbriel Umbriel
-      check_dependency umbriel optional noctalia 'Noctalia v5 CLI'
+      check_dependency umbriel required noctalia 'Noctalia v5 CLI'
       check_dependency umbriel optional ghostty 'Ghostty keybinding'
       check_dependency umbriel optional fcitx5 'Fcitx5 autostart'
       check_dependency umbriel optional gnome-keyring-daemon 'GNOME Keyring'
@@ -325,8 +273,8 @@ case "$1" in
     list_components
     exit 0
     ;;
-  check|install)
-    ACTION="$1"
+  check)
+    ACTION="check"
     shift
     ;;
   --help|-h)
@@ -338,7 +286,6 @@ esac
 declare -a REQUESTED=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --copy) INSTALL_MODE="copy" ;;
     --link) INSTALL_MODE="link" ;;
     --dry-run) DRY_RUN=true ;;
     --help|-h)
@@ -354,21 +301,24 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-if [[ "$ACTION" != "install" && "$DRY_RUN" == true ]]; then
-  echo "--dry-run is only valid for file installation." >&2
+if [[ ${#REQUESTED[@]} -eq 0 ]]; then
+  echo "No component selected." >&2
+  usage >&2
+  exit 1
+fi
+
+if [[ "$ACTION" == "check" && ( "$INSTALL_MODE" != "copy" || "$DRY_RUN" == true ) ]]; then
+  echo "--link and --dry-run cannot be used with check." >&2
   exit 1
 fi
 
 declare -a SELECTED_COMPONENTS=()
 expand_selection "${REQUESTED[@]}"
 
-case "$ACTION" in
-  check)
-    check_dependencies
-    ;;
-  install)
-    for name in "${SELECTED_COMPONENTS[@]}"; do
-      install_component "$name"
-    done
-    ;;
-esac
+if [[ "$ACTION" == "check" ]]; then
+  check_dependencies
+else
+  for name in "${SELECTED_COMPONENTS[@]}"; do
+    install_component "$name"
+  done
+fi

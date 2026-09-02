@@ -4,7 +4,6 @@ show_usage() {
   cat <<'EOF'
 Usage:
   keys g    Search Ghostty's default keybindings
-  keys n    Search the installed Niri keybindings
   keys t    Show how to open tmux's built-in keybinding help
 EOF
 }
@@ -41,62 +40,6 @@ case "${1:-}" in
         --border \
         --info=inline \
         --header='KEY                      ACTION'
-    ;;
-
-  n|niri)
-    config_root="${XDG_CONFIG_HOME:-$HOME/.config}/niri"
-    config_file="${NIRI_CONFIG:-$config_root/config.kdl}"
-    keybind_file="${config_file:h}/cfg/keybinds.kdl"
-
-    # This dotfiles layout keeps binds in cfg/keybinds.kdl. Fall back to the
-    # main config so the helper also works with an inline Niri configuration.
-    if [[ ! -r "$keybind_file" ]]; then
-      keybind_file="$config_file"
-    fi
-
-    if [[ ! -r "$keybind_file" ]]; then
-      print -u2 "keys: Niri config not found: $config_file"
-      exit 1
-    fi
-
-    niri_bindings() {
-      awk '
-        /^[[:space:]]*(Mod|CTRL|ALT|Shift|XF86)[^[:space:]]*[[:space:]]/ {
-          line = $0
-          sub(/^[[:space:]]*/, "", line)
-
-          key = line
-          sub(/[[:space:]].*$/, "", key)
-
-          title = ""
-          if (match(line, /hotkey-overlay-title="[^"]+"/)) {
-            title = substr(line, RSTART, RLENGTH)
-            sub(/^hotkey-overlay-title="/, "", title)
-            sub(/"$/, "", title)
-          } else if (match(line, /\{[^}]+;/)) {
-            title = substr(line, RSTART + 1, RLENGTH - 2)
-            gsub(/^[[:space:]]+|[[:space:]]+$/, "", title)
-            gsub(/[[:space:]]+/, " ", title)
-          }
-
-          if (title != "") {
-            printf "%-34s %s\n", key, title
-          }
-        }
-      ' "$keybind_file"
-    }
-
-    if (( $+commands[fzf] )); then
-      niri_bindings | fzf \
-        --prompt='Niri keybinds > ' \
-        --layout=reverse \
-        --border \
-        --info=inline \
-        --header='KEY                                ACTION'
-    else
-      print 'KEY                                ACTION'
-      niri_bindings
-    fi
     ;;
 
   t|tmux)

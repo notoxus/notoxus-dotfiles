@@ -1,64 +1,27 @@
 # Notoxus Dotfiles 🌸
 
-Personal configuration for my Arch-based Wayland desktop.
+Personal ricing for my Wayland desktop.
 
 | Area | Current setup |
 |---|---|
-| Distribution | Arch Linux |
+| Distribution | Arch Linux (or any Arch-based distro) --> expected to move to NixOS soon |
 | Compositor | Niri (primary), Umbriel (experimental) |
-| Desktop shell | Noctalia |
+| Desktop shell | Noctalia v5 |
 | Shell | Zsh, Starship, zoxide, and fzf |
 | Terminal | Ghostty and tmux |
 | Input method | Fcitx5 with fcitx5-lotus |
 
-Umbriel is experimental here because it integrates with Noctalia—and it looks
-pretty good 👍👍👍
+`Why did I decide to adapt to Umbriel?`
+
+- It's synchronized with the Noctalia shell, and I also think it's pretty 👍👍👍
 
 ## Installation
-
-The installer only checks local dependencies and deploys configuration. It
-never runs `sudo`, a package manager, `curl`, or an online installer.
 
 ```sh
 git clone https://github.com/notoxus/notoxus-dotfiles ~/dotfiles
 cd ~/dotfiles
 ./install list
-./install check all
 ```
-
-### Copy files (default)
-
-Install the default terminal and shell components:
-
-```sh
-./install all
-```
-
-`all` includes `ghostty`, `starship`, `tmux`, and `zsh`. Desktop-specific
-components are selected explicitly:
-
-```sh
-./install niri noctalia input
-```
-
-Copy mode is idempotent. If an existing destination differs, it is moved to a
-timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
-
-### Symlink files (optional)
-
-Use symlinks only when the repository should act as the live configuration:
-
-```sh
-./install --link zsh tmux ghostty
-```
-
-Preview either mode without changing `$HOME`:
-
-```sh
-./install --dry-run all
-./install --link --dry-run niri noctalia
-```
-
 ## Requirements
 
 | Component | Main requirements |
@@ -66,28 +29,78 @@ Preview either mode without changing `$HOME`:
 | `ghostty` | Ghostty and a Nerd Font |
 | `zsh` | Zsh; Starship, fzf, zoxide, and plugins are optional |
 | `tmux` | tmux; Git and curl are optional |
-| `niri` | Niri, Noctalia v4, Fcitx5, and GNOME Keyring |
-| `noctalia` | Quickshell and Noctalia Shell legacy v4 |
+| `niri` | Niri, Noctalia v5, Fcitx5, and GNOME Keyring |
+| `noctalia` | Noctalia v5 |
 | `input` | Fcitx5 and fcitx5-lotus |
 | `umbriel` | Umbriel and Noctalia v5 |
 
-If you do not already have these dependencies, follow their upstream
-installation guides:
+Run `./install check <component>` for check necessary dependency. If you do not already have these dependencies, follow their upstream installation guides:
 
-[Dependency installation guides](docs/requirements.md)
+[Click here!](docs/requirements.md)
 
-Run `./install check <component>` for a read-only check of required and
-optional integrations.
+### Check dependencies
 
-## Repository layout
+Before get started, inspect every component:
 
-Each component mirrors its destination relative to `$HOME`:
+```sh
+./install check all
+```
+
+Specific:
+
+```sh
+./install check <component 1> <component 2> <component ...>
+```
+
+`check` is read-only and only reports what is present, missing, or needs manual
+verification. Installation links are kept in
+[the dependency guide](docs/requirements.md).
+
+### Copy files
+
+Install the default terminal and shell components:
+
+```sh
+./install all
+```
+
+Specific:
+
+```sh
+./install <component 1> <component 2> <component ...>
+```
+
+If an existing destination differs, it is moved to a
+timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
+
+### Symlink files
+
+- Use symlinks only when the repository should act as the live configuration:
+- Each component mirrors its destination relative to `$HOME`:
+
+`Ex:`
 
 ```text
 ghostty/.config/ghostty/config.ghostty
                      ↓
 ~/.config/ghostty/config.ghostty
 ```
+
+```sh
+./install --link all
+```
+```sh
+./install --link <component 1> <component 2> <component ...>
+```
+
+Preview either mode without changing `$HOME`:
+
+```sh
+./install --dry-run all
+./install --link --dry-run <component 1> <component 2> <component ...>
+```
+
+## Repository layout
 
 | Component | Purpose |
 |---|---|
@@ -96,31 +109,18 @@ ghostty/.config/ghostty/config.ghostty
 | `git` | Git setup notes |
 | `input` | Fcitx5 configuration |
 | `niri` | Primary compositor |
-| `noctalia` | Shell and bar for Niri |
+| `noctalia` | Shell and bar for Niri and Umbriel |
 | `starship` | Shell prompt |
 | `tmux` | Terminal multiplexer |
 | `umbriel` | Experimental compositor |
 | `zsh` | Shell configuration and the `keys` helper |
 
-Some files under `noctalia` and `input` are application-managed state. Keep
-private values out of public copies of this repository.
+Some files under `input` are application-managed state. Keep private values out
+of public copies of this repository.
 
 ## Shortcut discovery
 
 After installing the `zsh` component:
 
-```sh
-keys g   # Ghostty defaults
-keys n   # Installed Niri config
-keys t   # tmux help reminder
-```
-
-Niri also provides its own overlay at `Mod+Shift+Esc`.
-
 See [workflow notes](docs/workflow.md) for shell, tmux, clipboard, and compositor
-details. The planned—but not implemented—Home Manager structure lives in the
-[Nix layout note](docs/nix-layout.md).
-
-## License
-
-Personal configuration files. Use whatever is useful.
+details.

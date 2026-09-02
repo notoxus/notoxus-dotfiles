@@ -26,14 +26,13 @@ upstream guide and your distribution's documentation.
 TPM and its plugins are optional. Install them from inside tmux only when the
 plugin functionality is wanted.
 
-## Niri and Noctalia v4
+## Niri and Noctalia v5
 
 - [Niri: Getting Started](https://github.com/niri-wm/niri/wiki/Getting-Started)
-- [Quickshell installation](https://quickshell.org/docs/guide/install-setup/)
-- [Noctalia Shell legacy v4 installation](https://docs.noctalia.dev/noctalia-shell-legacy/getting-started/installation/)
+- [Noctalia v5 installation](https://docs.noctalia.dev/noctalia/getting-started/installation/)
 
-The tracked Niri configuration launches the legacy Quickshell-based Noctalia
-v4 shell. Noctalia v5 uses a different runtime and command interface.
+The tracked Niri configuration launches Noctalia directly and uses its v5
+`noctalia msg` command interface.
 
 ## Input method
 
@@ -43,13 +42,12 @@ v4 shell. Noctalia v5 uses a different runtime and command interface.
 Both Fcitx5 and the fcitx5-lotus engine are needed for the tracked Vietnamese
 input-method configuration.
 
-## Umbriel and Noctalia v5
+## Umbriel
 
 - [Umbriel documentation](https://docs.noctalia.dev/umbriel/)
-- [Noctalia v5 installation](https://docs.noctalia.dev/noctalia/getting-started/installation/)
 
 Umbriel support is experimental in this repository and its keybindings target
-the Noctalia v5 command interface.
+the same Noctalia v5 command interface.
 
 ## Optional integrations
 

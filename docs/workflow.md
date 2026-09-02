@@ -21,14 +21,12 @@ source ~/.config/zsh/.zshrc
 
 ```sh
 keys g
-keys n
 keys t
 ```
 
 - `keys g` searches Ghostty's default keybindings with fzf.
-- `keys n` searches the installed Niri configuration and falls back to plain
-  output when fzf is unavailable.
 - `keys t` reminds you how to open tmux's built-in keybinding help.
+- `Mod+Shift+Esc` opens Niri's built-in keybinding overlay.
 
 ## Ghostty and tmux
 
@@ -46,3 +44,17 @@ Install TPM plugins with `Ctrl+B`, then `I`; update them with `Ctrl+B`, then
 ```sh
 tmux source-file ~/.config/tmux/tmux.conf
 ```
+
+## Noctalia v5
+
+Niri and Umbriel both launch the native Noctalia v5 executable and use
+`noctalia msg` for shell controls. After deploying the configuration, validate
+it with:
+
+```sh
+noctalia config validate
+```
+
+Noctalia stores changes made in its settings UI under
+`~/.local/state/noctalia/settings.toml`. Those state overrides take precedence
+over the tracked `~/.config/noctalia/config.toml` values.

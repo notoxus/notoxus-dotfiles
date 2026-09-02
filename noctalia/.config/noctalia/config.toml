@@ -1,0 +1,133 @@
+# Noctalia v5 configuration. Keep this file small and let upstream defaults
+# cover settings that are not part of this dotfiles setup.
+
+[shell]
+corner_radius_scale = 1.0
+telemetry_enabled = false
+polkit_agent = true
+clipboard_enabled = false
+
+[shell.animation]
+enabled = true
+speed = 1.0
+
+[shell.shadow]
+direction = "down_right"
+alpha = 0.55
+
+[shell.panel]
+transparency_mode = "soft"
+borders = true
+shadow = true
+launcher_placement = "floating"
+clipboard_placement = "floating"
+control_center_placement = "attached"
+wallpaper_placement = "attached"
+session_placement = "floating"
+launcher_position = "center"
+
+[shell.launcher]
+categories = false
+show_icons = true
+compact = false
+app_grid = false
+sort_by_usage = true
+pinned = []
+
+[wallpaper]
+enabled = true
+fill_mode = "crop"
+transition = ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"]
+transition_duration = 1500
+transition_on_startup = false
+directory = "~/Pictures/Wallpapers"
+
+# Keep the normal wallpaper stationary inside Niri's overview backdrop.
+[backdrop]
+enabled = false
+
+[theme]
+mode = "dark"
+source = "builtin"
+builtin = "Tokyo-Night"
+
+[notification]
+enable_daemon = true
+background_opacity = 0.97
+
+[lockscreen]
+enabled = true
+
+[system.monitor]
+enabled = true
+
+[weather]
+enabled = true
+unit = "celsius"
+
+[location]
+auto_locate = true
+
+[audio]
+enable_overdrive = false
+enable_sounds = false
+
+[brightness]
+enable_ddcutil = false
+
+[bar.main]
+position = "top"
+thickness = 34
+background_opacity = 0.93
+radius = 12
+margin_ends = 4
+margin_edge = 4
+padding = 8
+widget_spacing = 6
+scale = 1.0
+font_scale = 1.0
+shadow = true
+auto_hide = false
+reserve_space = true
+capsule = true
+start = ["launcher", "clock", "active_window", "media"]
+center = ["workspaces"]
+end = ["tray", "notifications", "battery", "volume", "brightness", "control-center"]
+
+[dock]
+enabled = true
+position = "bottom"
+icon_size = 48
+background_opacity = 1.0
+radius = 16
+margin_edge = 8
+shadow = true
+auto_hide = true
+reserve_space = false
+launcher_position = "none"
+pinned = []
+
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "nightlight"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[[control_center.shortcuts]]
+type = "wallpaper"
+
+[[control_center.shortcuts]]
+type = "session"
+
+[widget.notifications]
+hide_when_no_unread = true
+
+[widget.clock]
+format = "{:%H:%M}  {:%a, %b %d}"
+tooltip_format = "{:%A, %B %d, %Y}"
