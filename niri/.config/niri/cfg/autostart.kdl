@@ -3,8 +3,10 @@
 
     spawn-sh-at-startup "qs -c noctalia-shell"
     spawn-sh-at-startup "fcitx5 -d"
-    spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
     spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
+
+    // Noctalia's tracked polkit-agent plugin owns authentication prompts.
+    // Avoid a second distro-specific agent path here.
 
     // Dark mode: GTK4/libadwaita apps and the xdg portal read color-scheme
     // from gsettings (dconf), which is machine-local binary state we don't

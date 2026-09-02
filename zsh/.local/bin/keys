@@ -3,14 +3,14 @@
 show_usage() {
   cat <<'EOF'
 Usage:
-  keys g, -g    Search Ghostty's default keybindings
-  keys n, -n    Search the installed Niri keybindings
-  keys t, -t    Show how to open tmux's built-in keybinding help
+  keys g    Search Ghostty's default keybindings
+  keys n    Search the installed Niri keybindings
+  keys t    Show how to open tmux's built-in keybinding help
 EOF
 }
 
 case "${1:-}" in
-  g|-g|ghostty)
+  g|ghostty)
     if (( ! $+commands[ghostty] )); then
       print -u2 "keys: ghostty is not installed"
       exit 1
@@ -43,7 +43,7 @@ case "${1:-}" in
         --header='KEY                      ACTION'
     ;;
 
-  n|-n|niri)
+  n|niri)
     config_root="${XDG_CONFIG_HOME:-$HOME/.config}/niri"
     config_file="${NIRI_CONFIG:-$config_root/config.kdl}"
     keybind_file="${config_file:h}/cfg/keybinds.kdl"
@@ -99,7 +99,7 @@ case "${1:-}" in
     fi
     ;;
 
-  t|-t|tmux)
+  t|tmux)
     print "Inside tmux, press Ctrl+B, release it, then press ?"
     ;;
 

@@ -7,7 +7,6 @@ files = ["keybinds.toml", "rules.toml"]
 autostart = [
   "noctalia",
   "fcitx5 -d",
-  "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
   "gnome-keyring-daemon --start --components=secrets",
   "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'",
 ]

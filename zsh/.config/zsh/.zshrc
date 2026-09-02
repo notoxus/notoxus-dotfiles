@@ -72,11 +72,28 @@ alias bentopdf='docker run -d --rm --name bentopdf -p 3000:8080 ghcr.io/alam0000
 
 
 # ── Zsh plugins ───────────────────────────────────────────────────
-if [[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+source_first_readable() {
+  local candidate
+  for candidate in "$@"; do
+    if [[ -r "$candidate" ]]; then
+      source "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+
+source_first_readable \
+  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  "$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+  /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Keep syntax highlighting last.
-if [[ -r /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+source_first_readable \
+  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  "$HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+  /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+unfunction source_first_readable
