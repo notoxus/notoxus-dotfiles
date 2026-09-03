@@ -2,7 +2,10 @@
 
 # Print an optional CPU-temperature suffix for the tmux status line.
 # Prefer the package/control sensor, then fall back to the average core value.
-command -v sensors >/dev/null 2>&1 || exit 0
+command -v sensors >/dev/null 2>&1 || {
+    printf '%s' '--'
+    exit 0
+}
 
 LC_ALL=C sensors 2>/dev/null | awk '
 function number(value) {
@@ -32,9 +35,11 @@ END {
         temperature = package
     else if (core_count)
         temperature = cores / core_count
-    else
+    else {
+        printf "--"
         exit
+    }
 
-    printf " / %.0f°C", temperature
+    printf "%.0f°C", temperature
 }
 '

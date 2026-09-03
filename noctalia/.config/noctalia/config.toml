@@ -69,6 +69,9 @@ background_opacity = 0.97
 
 [lockscreen]
 enabled = true
+blurred_desktop = false
+blur_intensity = 0.35
+tint_intensity = 0.4
 
 [idle]
 behavior_order = ["lock"]
