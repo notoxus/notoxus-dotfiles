@@ -74,6 +74,11 @@ alias bentopdf='docker run -d --rm --name bentopdf -p 3000:8080 ghcr.io/alam0000
 
 
 # ── Zsh plugins ───────────────────────────────────────────────────
+# Keep familiar commands from history, then fall back to context-aware
+# completion for files, directories, options, and other arguments.
+typeset -ga ZSH_AUTOSUGGEST_STRATEGY
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
 source_first_readable() {
   local candidate
   for candidate in "$@"; do

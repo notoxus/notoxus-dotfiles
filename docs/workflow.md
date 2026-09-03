@@ -7,7 +7,7 @@ Zsh
 ├── Starship                  prompt
 ├── zoxide                    directory jumping (`z`, `zi`)
 ├── fzf                       history, file, and directory search
-├── zsh-autosuggestions       history-based suggestions
+├── zsh-autosuggestions       history and context-aware completion
 └── zsh-syntax-highlighting   command-line highlighting
 ```
 

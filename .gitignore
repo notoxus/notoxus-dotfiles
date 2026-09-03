@@ -1,7 +1,3 @@
-# ── Input-method runtime state ──
-input/.config/fcitx/dbus/
-input/.config/ibus/bus/
-
 # ── Secrets / tokens (safety net — should never live here) ──
 *.pem
 *token*
@@ -24,9 +20,3 @@ tmux/.config/tmux/plugins/
 # ── App logs / caches ──
 *.log
 input/.config/fcitx5/conf/cached_layouts
-
-# LibreOffice lock files
-.~lock.*#
-
-# Automation script
-auto_rename.sh

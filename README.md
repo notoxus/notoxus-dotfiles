@@ -104,7 +104,6 @@ Preview either mode without changing `$HOME`:
 
 | Component | Purpose |
 |---|---|
-| `desktop` | GTK, MIME, audio, and user-directory preferences |
 | `ghostty` | Primary terminal |
 | `git` | Git setup notes |
 | `niri` | Primary compositor |

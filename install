@@ -4,7 +4,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRIMARY_COMPONENTS=(desktop ghostty git niri noctalia starship tmux zsh)
+PRIMARY_COMPONENTS=(ghostty git niri noctalia starship tmux zsh)
 COMPONENTS=("${PRIMARY_COMPONENTS[@]}" umbriel)
 
 ACTION="copy"
@@ -117,10 +117,6 @@ verify_manually() {
 
 check_component() {
   case "$1" in
-    desktop)
-      check_dependency desktop optional 'pavucontrol|pwvucontrol' 'volume control UI'
-      check_dependency desktop optional gsettings 'GSettings CLI'
-      ;;
     ghostty)
       check_dependency ghostty required ghostty Ghostty
       verify_manually ghostty optional 'JetBrainsMono Nerd Font (or change font-family)'
