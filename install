@@ -133,7 +133,7 @@ check_component() {
       ;;
     tmux)
       check_dependency tmux required tmux tmux
-      check_dependency tmux optional curl 'curl weather lookup'
+      check_dependency tmux optional sensors 'CPU temperature'
       check_dependency tmux optional git 'Git for TPM'
       verify_manually tmux optional 'TPM plugins (Prefix + I)'
       ;;
