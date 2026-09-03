@@ -70,6 +70,15 @@ background_opacity = 0.97
 [lockscreen]
 enabled = true
 
+[idle]
+behavior_order = ["lock"]
+pre_action_fade_seconds = 2.0
+
+[idle.behavior.lock]
+timeout = 600
+action = "lock"
+enabled = true
+
 [system.monitor]
 enabled = true
 
