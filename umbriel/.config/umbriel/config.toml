@@ -7,8 +7,6 @@ files = ["keybinds.toml", "rules.toml"]
 autostart = [
   "noctalia",
   "fcitx5 -d",
-  "gnome-keyring-daemon --start --components=secrets",
-  "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'",
 ]
 mod_key = "Super"
 xwayland = true
@@ -20,7 +18,6 @@ honor_restored_maximize = false
 ELECTRON_OZONE_PLATFORM_HINT = "auto"
 QT_QPA_PLATFORM = "wayland"
 QT_QPA_PLATFORMTHEME = "gtk3"
-QT_WAYLAND_DISABLE_WINDOWDECORATION = "1"
 
 [workspaces]
 back_and_forth = true
@@ -88,7 +85,7 @@ duration_ms = 140
 curve = "easeout"
 
 [appearance]
-prefer_no_csd = true
+prefer_no_csd = false
 border_width = 2
 outer_border_width = 0
 corner_radius = 14
@@ -166,9 +163,3 @@ hide_timeout_ms = 0
 
 [input.focus]
 follows_mouse = true
-
-# Ported from the existing Niri display config. Adjust or remove this table if
-# the connector/mode changes on another machine.
-[output."DP-1"]
-mode = "2560x1440@359.979"
-scale = 1.0

@@ -3,13 +3,6 @@
 
     spawn-at-startup "noctalia"
     spawn-sh-at-startup "fcitx5 -d"
-    spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 
     // Noctalia v5 provides the polkit agent enabled in config.toml.
     // Avoid starting a second distro-specific agent here.
-
-    // Dark mode: GTK4/libadwaita apps and the xdg portal read color-scheme
-    // from gsettings (dconf), which is machine-local binary state we don't
-    // track — re-apply it every login so fresh machines get dark mode too.
-    // (GTK3 theme itself is already pinned in gtk-3.0/settings.ini.)
-    spawn-sh-at-startup "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"

@@ -41,14 +41,6 @@ The tracked Niri configuration launches Noctalia directly and uses its v5
 Umbriel support is experimental in this repository and its keybindings target
 the same Noctalia v5 command interface.
 
-## Optional integrations
-
-- [Fcitx5 installation](https://fcitx-im.org/wiki/Install_Fcitx_5)
-- [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus)
-
-Fcitx5 can be configured locally when Vietnamese input is needed. Its generated
-profiles and application state are not tracked by this repository.
-
 Run the read-only checker for component-specific optional integrations:
 
 ```sh

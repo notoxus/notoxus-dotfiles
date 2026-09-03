@@ -9,7 +9,6 @@ Personal ricing for my Wayland desktop.
 | Desktop shell | Noctalia v5 |
 | Shell | Zsh, Starship, zoxide, and fzf |
 | Terminal | Ghostty and tmux |
-| Input method | Fcitx5 with fcitx5-lotus |
 
 `Why did I decide to adapt to Umbriel?`
 
@@ -105,13 +104,14 @@ Preview either mode without changing `$HOME`:
 | Component | Purpose |
 |---|---|
 | `ghostty` | Primary terminal |
-| `git` | Git setup notes |
 | `niri` | Primary compositor |
 | `noctalia` | Shell and bar for Niri and Umbriel |
 | `starship` | Shell prompt |
 | `tmux` | Terminal multiplexer |
 | `umbriel` | Experimental compositor |
 | `zsh` | Shell configuration and the `keys` helper |
+
+[Git and GitHub SSH setup guide](docs/git-ssh-setup.md)
 
 ## Shortcut discovery
 

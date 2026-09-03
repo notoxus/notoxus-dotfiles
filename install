@@ -4,7 +4,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRIMARY_COMPONENTS=(ghostty git niri noctalia starship tmux zsh)
+PRIMARY_COMPONENTS=(ghostty niri noctalia starship tmux zsh)
 COMPONENTS=("${PRIMARY_COMPONENTS[@]}" umbriel)
 
 ACTION="copy"
@@ -120,8 +120,6 @@ check_component() {
     ghostty)
       check_dependency ghostty required ghostty Ghostty
       verify_manually ghostty optional 'JetBrainsMono Nerd Font (or change font-family)'
-      ;;
-    git)
       ;;
     niri)
       check_dependency niri required niri Niri
