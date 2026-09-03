@@ -56,7 +56,9 @@
   environment.systemPackages = with pkgs; [
     git
     vim
+    neovim
     tree
+    fastfetch
     firefox
     wl-clipboard
     ghostty

@@ -4,8 +4,8 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRIMARY_COMPONENTS=(ghostty niri noctalia starship tmux zsh)
-COMPONENTS=("${PRIMARY_COMPONENTS[@]}" umbriel)
+PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux zsh)
+COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop umbriel)
 
 ACTION="copy"
 INSTALL_MODE="copy"
@@ -54,7 +54,7 @@ component_exists() {
 list_components() {
   printf 'Components:\n'
   printf '  %s\n' "${COMPONENTS[@]}"
-  printf "\nSpecific only:\n  umbriel\n"
+  printf "\nSpecific only:\n  btop\n  umbriel\n"
 }
 
 
@@ -117,6 +117,13 @@ verify_manually() {
 
 check_component() {
   case "$1" in
+    btop)
+      check_dependency btop required btop btop
+      ;;
+    fastfetch)
+      check_dependency fastfetch required fastfetch Fastfetch
+      verify_manually fastfetch optional 'Nerd Font for interface glyphs'
+      ;;
     ghostty)
       check_dependency ghostty required ghostty Ghostty
       verify_manually ghostty optional 'JetBrainsMono Nerd Font (or change font-family)'
@@ -127,6 +134,14 @@ check_component() {
       ;;
     noctalia)
       check_dependency noctalia required noctalia 'Noctalia v5 CLI'
+      ;;
+    nvim)
+      check_dependency nvim required nvim Neovim
+      check_dependency nvim required git 'Git plugin bootstrap'
+      check_dependency nvim optional fzf 'fzf-lua search'
+      check_dependency nvim optional rg 'ripgrep live grep'
+      check_dependency nvim optional 'cc|gcc|clang' 'C compiler for Treesitter parsers'
+      verify_manually nvim optional 'Nerd Font for interface glyphs'
       ;;
     starship)
       check_dependency starship required starship Starship

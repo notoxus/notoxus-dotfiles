@@ -69,6 +69,18 @@ if (( $+commands[starship] )); then
 fi
 
 
+# ── Ghostty welcome ──────────────────────────────────────────────
+# Show one system snapshot per Ghostty terminal, not again in tmux
+# panes or when the current shell is reloaded.
+if [[ -o interactive ]] \
+  && [[ "${TERM_PROGRAM:-}" == "ghostty" || "${TERM:-}" == "xterm-ghostty" ]] \
+  && [[ -z "${TMUX:-}" && -z "${NOTOXUS_FASTFETCH_SHOWN:-}" ]] \
+  && (( $+commands[fastfetch] )); then
+  export NOTOXUS_FASTFETCH_SHOWN=1
+  fastfetch
+fi
+
+
 # ── Aliases ───────────────────────────────────────────────────────
 alias bentopdf='docker run -d --rm --name bentopdf -p 3000:8080 ghcr.io/alam00000/bentopdf-simple:latest'
 
