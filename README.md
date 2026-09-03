@@ -28,7 +28,7 @@ chmod +x ./install
 |---|---|
 | `ghostty` | Ghostty and a Nerd Font |
 | `zsh` | Zsh; Starship, fzf, zoxide, and plugins are optional |
-| `tmux` | tmux; Git and curl are optional |
+| `tmux` | tmux; Git and lm-sensors are optional |
 | `niri` | Niri and Noctalia v5 |
 | `noctalia` | Noctalia v5 |
 | `umbriel` | Umbriel and Noctalia v5 |
@@ -84,6 +84,17 @@ noctalia msg plugins enable notoxus/os-logo
 
 Log out and back in after enabling it for the first time. A config reload may
 not create a newly added plugin widget until the Noctalia session restarts.
+
+### Install the tmux plugins
+
+The tmux component declares `tmux-cpu`, `tmux-resurrect`, and
+`tmux-continuum`. After installing TPM from the dependency guide, copy the
+component, start tmux, then press `Ctrl+B` followed by `I`:
+
+```sh
+./install tmux
+tmux
+```
 
 ### Symlink files
 

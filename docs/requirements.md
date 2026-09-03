@@ -22,6 +22,7 @@ upstream guide and your distribution's documentation.
 
 - [tmux installation](https://github.com/tmux/tmux/wiki/Installing)
 - [TPM installation](https://github.com/tmux-plugins/tpm#installation)
+- [lm-sensors](https://github.com/lm-sensors/lm-sensors)
 
 TPM and its plugins are optional. Install them from inside tmux only when the
 plugin functionality is wanted.

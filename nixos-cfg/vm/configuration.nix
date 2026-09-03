@@ -24,6 +24,17 @@
   programs.niri.enable = true;
   programs.noctalia.enable = true;
   # programs.noctalia.recommendedServices.enable = true;
+
+  # Enter Niri automatically once when the VM boots. Logging out returns to
+  # greetd instead of immediately starting another session.
+  services.greetd = {
+    enable = true;
+    settings.initial_session = {
+      command = "${pkgs.niri}/bin/niri-session";
+      user = "juo";
+    };
+  };
+
   services.openssh.enable = true;
 
   users.users.juo = {

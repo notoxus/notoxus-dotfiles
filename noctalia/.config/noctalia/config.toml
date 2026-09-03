@@ -113,13 +113,14 @@ enabled = ["notoxus/os-logo"]
 
 # Present
 [bar.main]
-position = "top"
-thickness = 34
+position = "bottom"
+thickness = 38
 background_opacity = 0.93
-radius = 80
-margin_ends = 120
+radius = 18
+concave_edge_corners = false
+margin_ends = 16
 margin_edge = 0
-padding = 14
+padding = 12
 widget_spacing = 6
 scale = 1.0
 font_scale = 1.0
@@ -127,22 +128,12 @@ shadow = true
 auto_hide = false
 reserve_space = true
 capsule = false
-start = ["os-logo", "launcher", "workspaces"]
-center = ["clock"]
-end = ["media", "tray", "network", "notifications", "battery", "volume", "brightness", "control-center", "session"]
+start = ["os-logo", "launcher", "workspaces", "taskbar"]
+center = ["media"]
+end = ["tray", "network", "notifications", "battery", "volume", "brightness", "clock", "control-center", "session"]
 
 [dock]
-enabled = true
-position = "bottom"
-icon_size = 48
-background_opacity = 1.0
-radius = 16
-margin_edge = 8
-shadow = true
-auto_hide = true
-reserve_space = false
-launcher_position = "none"
-pinned = []
+enabled = false
 
 [[control_center.shortcuts]]
 type = "wifi"
@@ -173,7 +164,7 @@ display_mode = "graphic"
 show_label = false
 
 [widget.control-center]
-glyph = "chevron-down"
+glyph = "chevron-up"
 
 [widget.session]
 glyph = "power"
@@ -193,6 +184,19 @@ art_size = 18
 hide_artist = true
 title_scroll = "on_hover"
 show_progress = true
+
+[widget.taskbar]
+pinned = []
+group_by_workspace = false
+show_all_outputs = false
+only_active_workspace = false
+icon_scale = 0.9
+item_spacing = 4
+show_window_title = false
+show_active_indicator = true
+active_indicator_color = "primary"
+active_opacity = 1.0
+inactive_opacity = 0.75
 
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
