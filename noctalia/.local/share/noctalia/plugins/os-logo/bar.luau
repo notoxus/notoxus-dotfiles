@@ -56,17 +56,38 @@ end
 local fields = readOsRelease()
 local logo = resolveLogo(fields)
 local osName = fields.PRETTY_NAME or fields.NAME or fields.ID or "Linux"
+local iconPath = nil
+
+-- LOGO is the freedesktop icon name advertised by the distribution in
+-- /etc/os-release (for example, NixOS uses "nix-snowflake"). Prefer the
+-- original themed icon and keep the Nerd Font glyph as a portable fallback.
+if fields.LOGO and fields.LOGO ~= "" then
+  iconPath = noctalia.appIconPath(fields.LOGO, 18)
+end
+
+local function renderLogo()
+  if iconPath then
+    return ui.image({
+      path = iconPath,
+      width = 18,
+      height = 18,
+      fit = "contain",
+    })
+  end
+
+  return ui.label({
+    text = logo.glyph,
+    fontFamily = "JetBrainsMono Nerd Font Mono",
+    fontSize = 18,
+    fontWeight = "bold",
+    baseline = "inkCentered",
+    color = logo.color,
+  })
+end
 
 function update()
   barWidget.render(ui.row({ align = "center" }, {
-    ui.label({
-      text = logo.glyph,
-      fontFamily = "JetBrainsMono Nerd Font Mono",
-      fontSize = 18,
-      fontWeight = "bold",
-      baseline = "inkCentered",
-      color = logo.color,
-    }),
+    renderLogo(),
   }))
   barWidget.setTooltip(osName)
 end
