@@ -170,7 +170,6 @@ capsule = true
 
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
-interactive = false
 
 [widget.clock]
 format = "{:%H:%M:%S}  {:%a, %b %d}"
