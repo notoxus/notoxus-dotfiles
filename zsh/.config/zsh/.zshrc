@@ -77,7 +77,7 @@ if [[ -o interactive ]] \
   && [[ -z "${TMUX:-}" && -z "${NOTOXUS_FASTFETCH_SHOWN:-}" ]] \
   && (( $+commands[fastfetch] )); then
   export NOTOXUS_FASTFETCH_SHOWN=1
-  fastfetch
+  fastfetch --config "${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/config-mini.jsonc"
 fi
 
 
