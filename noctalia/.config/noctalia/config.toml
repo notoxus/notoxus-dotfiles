@@ -117,7 +117,7 @@ position = "top"
 thickness = 34
 background_opacity = 0.93
 radius = 80
-margin_ends = 180
+margin_ends = 120
 margin_edge = 0
 padding = 14
 widget_spacing = 6
@@ -172,6 +172,9 @@ show_label = false
 display_mode = "graphic"
 show_label = false
 
+[widget.control-center]
+glyph = "chevron-down"
+
 [widget.session]
 glyph = "power"
 color = "#FF000C"
@@ -182,11 +185,12 @@ capsule = true
 capsule_fill = "#000000"
 capsule_foreground = "#FFFFFF"
 capsule_opacity = 1.0
-capsule_padding = 8
+capsule_padding = 6
 capsule_radius = 99
-min_length = 180
-max_length = 220
-art_size = 20
+min_length = 120
+max_length = 150
+art_size = 18
+hide_artist = true
 title_scroll = "on_hover"
 show_progress = true
 
