@@ -111,53 +111,24 @@ enabled = ["notoxus/os-logo"]
 # end = ["tray", "notifications", "battery", "volume", "brightness", "control-center"]
 
 # Present
-[bar]
-order = ["clock-strip", "main"]
-
 [bar.main]
 position = "top"
 thickness = 34
 background_opacity = 0.93
-radius = 80
-margin_ends = 180
-margin_edge = 10
-padding = 15
-widget_spacing = 10
-scale = 1.0
-font_scale = 1.0
-shadow = true
-auto_hide = true
-show_on_workspace_switch = true
-reserve_space = false
-layer = "overlay"
-capsule = false
-start = ["os-logo", "launcher", "workspaces"]
-center = ["clock"]
-end = ["media", "tray", "notifications", "battery", "volume", "brightness", "control-center"]
-
-# Keep a compact clock visible while the main bar is hidden.
-[bar.clock-strip]
-position = "top"
-thickness = 34
-background_opacity = 0.0
 radius = 12
 margin_ends = 180
 margin_edge = 10
 padding = 14
-widget_spacing = 0
+widget_spacing = 6
 scale = 1.0
 font_scale = 1.0
-shadow = false
+shadow = true
 auto_hide = false
-reserve_space = false
-layer = "top"
-capsule = true
-capsule_fill = "primary"
-capsule_foreground = "on_primary"
-capsule_opacity = 0.95
-start = []
-center = ["clock-seconds"]
-end = []
+reserve_space = true
+capsule = false
+start = ["os-logo", "launcher", "workspaces"]
+center = ["clock"]
+end = ["media", "tray", "notifications", "battery", "volume", "brightness", "control-center"]
 
 [dock]
 enabled = true
@@ -193,17 +164,14 @@ type = "session"
 [widget.notifications]
 hide_when_no_unread = true
 
+[widget.media]
+hide_when_no_media = true
+capsule = true
+
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
 interactive = false
 
 [widget.clock]
-format = "{:%H:%M}  {:%a, %b %d}"
+format = "{:%H:%M:%S}  {:%a, %b %d}"
 tooltip_format = "{:%A, %B %d, %Y}"
-
-[widget.clock-seconds]
-type = "clock"
-format = "{:%H:%M:%S}"
-tooltip_format = "{:%A, %B %d, %Y}"
-font_weight = 700
-interactive = false
