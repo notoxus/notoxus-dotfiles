@@ -1,0 +1,14 @@
+id = "notoxus/os-logo"
+name = "OS Logo"
+version = "1.0.0"
+plugin_api = 3
+author = "notoxus"
+license = "MIT"
+dependencies = []
+icon = "device-desktop"
+description = "Show the current Linux distribution logo on the bar."
+tags = ["bar", "system"]
+
+[[widget]]
+id = "bar"
+entry = "bar.luau"
