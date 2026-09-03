@@ -28,6 +28,7 @@ shadow = true
 launcher_placement = "floating"
 clipboard_placement = "floating"
 control_center_placement = "attached"
+open_near_click_control_center = true
 wallpaper_placement = "attached"
 session_placement = "floating"
 launcher_position = "center"
@@ -115,9 +116,9 @@ enabled = ["notoxus/os-logo"]
 position = "top"
 thickness = 34
 background_opacity = 0.93
-radius = 12
+radius = 80
 margin_ends = 180
-margin_edge = 10
+margin_edge = 0
 padding = 14
 widget_spacing = 6
 scale = 1.0
@@ -128,7 +129,7 @@ reserve_space = true
 capsule = false
 start = ["os-logo", "launcher", "workspaces"]
 center = ["clock"]
-end = ["media", "tray", "notifications", "battery", "volume", "brightness", "control-center"]
+end = ["media", "tray", "network", "notifications", "battery", "volume", "brightness", "control-center", "session"]
 
 [dock]
 enabled = true
@@ -162,11 +163,32 @@ type = "wallpaper"
 type = "session"
 
 [widget.notifications]
-hide_when_no_unread = true
+hide_when_no_unread = false
+
+[widget.network]
+show_label = false
+
+[widget.battery]
+display_mode = "graphic"
+show_label = false
+
+[widget.session]
+glyph = "power"
+color = "#FF000C"
 
 [widget.media]
 hide_when_no_media = true
 capsule = true
+capsule_fill = "#000000"
+capsule_foreground = "#FFFFFF"
+capsule_opacity = 1.0
+capsule_padding = 8
+capsule_radius = 99
+min_length = 180
+max_length = 220
+art_size = 20
+title_scroll = "on_hover"
+show_progress = true
 
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
