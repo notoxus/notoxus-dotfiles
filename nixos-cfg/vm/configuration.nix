@@ -39,6 +39,7 @@
     git
     vim
     tree
+    firefox
     wl-clipboard
     ghostty
     starship
