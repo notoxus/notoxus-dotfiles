@@ -49,6 +49,11 @@
     zsh-syntax-highlighting
   ];
 
+  environment.pathsToLink = [
+    "/share/zsh-autosuggestions"
+    "/share/zsh-syntax-highlighting"
+  ];
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
