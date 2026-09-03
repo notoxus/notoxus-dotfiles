@@ -29,9 +29,16 @@
   # greetd instead of immediately starting another session.
   services.greetd = {
     enable = true;
-    settings.initial_session = {
-      command = "${pkgs.niri}/bin/niri-session";
-      user = "juo";
+    useTextGreeter = true;
+    settings = {
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "juo";
+      };
+      default_session = {
+        command = "${pkgs.greetd}/bin/agreety --cmd ${pkgs.niri}/bin/niri-session";
+        user = "greeter";
+      };
     };
   };
 
