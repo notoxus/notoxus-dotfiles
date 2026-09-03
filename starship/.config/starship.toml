@@ -25,7 +25,7 @@ min_time = 2000
 format = "took [$duration](bold #ff9e64) "
 
 [status]
-disabled = false
+disabled = true
 format = "[$symbol$status](bold #f7768e) "
 
 [line_break]

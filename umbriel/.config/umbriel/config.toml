@@ -26,37 +26,65 @@ QT_WAYLAND_DISABLE_WINDOWDECORATION = "1"
 back_and_forth = true
 empty_above = false
 
+# Previous animation preset
+# [animation]
+# enabled = true
+# duration_ms = 200
+# curve = "easeout"
+#
+# [animation.windows_in]
+# enabled = true
+# duration_ms = 200
+# curve = "easeout"
+# style = "popin"
+# scale = 0.85
+#
+# [animation.windows_out]
+# enabled = true
+# duration_ms = 200
+# curve = "easeout"
+# style = "fade"
+#
+# [animation.windows_move]
+# enabled = true
+# duration_ms = 200
+# curve = "snappy"
+#
+# [animation.workspaces]
+# enabled = true
+# duration_ms = 200
+# curve = "easeout"
+#
+# [animation.overview]
+# enabled = true
+# duration_ms = 200
+# curve = "easeout"
+
+# Present animation preset
 [animation]
 enabled = true
-duration_ms = 200
+duration_ms = 120
 curve = "easeout"
 
 [animation.windows_in]
-enabled = true
-duration_ms = 200
-curve = "easeout"
-style = "popin"
-scale = 0.85
+enabled = false
 
 [animation.windows_out]
-enabled = true
-duration_ms = 200
-curve = "easeout"
-style = "fade"
+enabled = false
 
 [animation.windows_move]
 enabled = true
-duration_ms = 200
+duration_ms = 120
 curve = "snappy"
 
 [animation.workspaces]
 enabled = true
-duration_ms = 200
+duration_ms = 120
 curve = "easeout"
 
 [animation.overview]
 enabled = true
-duration_ms = 200
+duration_ms = 140
 curve = "easeout"
 
 [appearance]
