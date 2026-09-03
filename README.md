@@ -72,6 +72,19 @@ Specific:
 If an existing destination differs, it is moved to a
 timestamped tree under `~/.dotfiles-backup/` before the new file is copied.
 
+### Enable the Noctalia plugin
+
+The `noctalia` component includes the local `notoxus/os-logo` plugin. After
+copying the component, enable the plugin once:
+
+```sh
+./install noctalia
+noctalia msg plugins enable notoxus/os-logo
+```
+
+Log out and back in after enabling it for the first time. A config reload may
+not create a newly added plugin widget until the Noctalia session restarts.
+
 ### Symlink files
 
 - Use symlinks only when the repository should act as the live configuration:
