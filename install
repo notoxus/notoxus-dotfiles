@@ -4,7 +4,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux zsh)
+PRIMARY_COMPONENTS=(fastfetch ghostty niri noctalia nvim starship tmux yazi zsh)
 COMPONENTS=("${PRIMARY_COMPONENTS[@]}" btop umbriel)
 
 ACTION="copy"
@@ -152,6 +152,10 @@ check_component() {
       check_dependency tmux optional git 'Git for TPM'
       verify_manually tmux optional 'TPM plugins (Prefix + I)'
       ;;
+    yazi)
+      check_dependency yazi required yazi Yazi
+      verify_manually yazi optional 'Nerd Font for file icons'
+      ;;
     umbriel)
       check_dependency umbriel required umbriel Umbriel
       check_dependency umbriel required noctalia 'Noctalia v5 CLI'
@@ -167,6 +171,11 @@ check_component() {
       check_dependency zsh optional \
         "file:/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh|file:/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh|file:$HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh|file:/run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
         'Zsh syntax highlighting'
+      check_dependency zsh optional eza 'eza tree alias'
+      check_dependency zsh optional lazygit 'Lazygit Git interface'
+      check_dependency zsh optional bat 'bat syntax highlighting'
+      check_dependency zsh optional delta 'Delta Git pager'
+      check_dependency zsh optional dust 'dust disk usage'
       check_dependency zsh optional docker 'Docker BentoPDF alias'
       check_dependency zsh optional git Git
       ;;

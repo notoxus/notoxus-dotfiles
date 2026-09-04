@@ -28,6 +28,8 @@ keys t
 - `keys t` reminds you how to open tmux's built-in keybinding help.
 - `Mod+Shift+Esc` opens Niri's built-in keybinding overlay.
 
+For easier comparison...Let's see [keybinds-cheetsheet.md](docs/keybinds-cheetsheet.md) for the compact Niri, tmux, and Neovim keymap.
+
 ## Ghostty and tmux
 
 Ghostty owns terminal shortcuts and clipboard integration. tmux owns sessions,

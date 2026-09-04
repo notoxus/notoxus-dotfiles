@@ -63,6 +63,22 @@ if (( $+commands[zoxide] )); then
 fi
 
 
+
+# ── Yazi ──────────────────────────────────────────────────────────
+# Exit with q to continue in the directory selected in Yazi; Q keeps
+# the current directory unchanged.
+if (( $+commands[yazi] )); then
+  function y() {
+    local tmp cwd
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    command yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [[ "$cwd" != "$PWD" && -d "$cwd" ]] && builtin cd -- "$cwd"
+    command rm -f -- "$tmp"
+  }
+fi
+
+
 # ── Starship prompt ───────────────────────────────────────────────
 if (( $+commands[starship] )); then
   eval "$(starship init zsh)"
@@ -83,6 +99,10 @@ fi
 
 # ── Aliases ───────────────────────────────────────────────────────
 alias bentopdf='docker run -d --rm --name bentopdf -p 3000:8080 ghcr.io/alam00000/bentopdf-simple:latest'
+
+if (( $+commands[eza] )); then
+  alias tree="eza --tree --icons"
+fi
 
 
 # ── Zsh plugins ───────────────────────────────────────────────────

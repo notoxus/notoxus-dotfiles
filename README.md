@@ -4,7 +4,7 @@ Personal ricing for my Wayland desktop.
 
 | Area | Current setup |
 |---|---|
-| Distribution | Arch Linux (or any Arch-based distro) --> expected to move to NixOS soon |
+| Distribution | Arch Linux (or NixOS, coz I use them in parallel) |
 | Compositor | Niri (primary), Umbriel (experimental) |
 | Desktop shell | Noctalia v5 |
 | Shell | Zsh, Starship, zoxide, and fzf |
@@ -28,14 +28,16 @@ chmod +x ./install
 |---|---|
 | `ghostty` | Ghostty and a Nerd Font |
 | `zsh` | Zsh; Starship, fzf, zoxide, and plugins are optional |
+| `starship` | Starship |
 | `tmux` | tmux; Git and lm-sensors are optional |
+| `fastfetch` | Fastfetch and a Nerd Font |
+| `nvim` | Neovim and Git; fzf, ripgrep, and a C compiler are optional |
+| `yazi` | Yazi and a Nerd Font |
+| `btop` | btop |
 | `niri` | Niri and Noctalia v5 |
 | `noctalia` | Noctalia v5 |
 | `umbriel` | Umbriel and Noctalia v5 |
 
-Run `./install check <component>` for check necessary dependency. If you do not already have these dependencies, follow their upstream installation guides:
-
-[Click here!](docs/requirements.md)
 
 ### Check dependencies
 
@@ -50,14 +52,11 @@ Specific:
 ```sh
 ./install check <component 1> <component 2> <component ...>
 ```
-
-`check` is read-only and only reports what is present, missing, or needs manual
-verification. Installation links are kept in
-[the dependency guide](docs/requirements.md).
+[Click here!](docs/requirements.md)
 
 ### Copy files
 
-Install the default terminal and shell components:
+Install the default components:
 
 ```sh
 ./install all
@@ -96,6 +95,48 @@ component, start tmux, then press `Ctrl+B` followed by `I`:
 tmux
 ```
 
+### Terminal workflow
+
+`fastfetch`, `nvim`, and `yazi` are installed by `all`. `btop` remains a
+specific component:
+
+```sh
+./install btop
+```
+
+`Mod + E` opens Yazi in Ghostty. In Zsh, use `y` to continue in the directory
+selected in Yazi; quit Yazi with `q` to change directory or `Q` to keep the
+current one.
+
+### Optional command-line tools
+
+`./install check zsh` also reports the optional `eza`, `lazygit`, `bat`,
+`delta`, and `dust` utilities. Nothing is installed automatically. When `eza`
+is present, Zsh provides:
+
+```sh
+tree
+```
+
+which runs `eza --tree --icons`.
+
+On Arch Linux:
+
+```sh
+sudo pacman -Syu eza lazygit bat git-delta dust
+```
+
+### Some useful applications that I'd love
+
+Including: OBS Studio, Rnote, Gaphor, LibreOffice, and Zotero.
+
+If you use NixOS, you just have to uncomment them in /etc/nixos/vm/configuration.nix
+
+BentoPDF for handling PDFs and Fcitx5 Lotus (Nguyen Ky) for Vietnamese typing:
+
+- [BentoPDF](https://github.com/alam00000/bentopdf)
+- [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus)
+
 ### Symlink files
 
 - Use symlinks only when the repository should act as the live configuration:
@@ -127,17 +168,21 @@ Preview either mode without changing `$HOME`:
 
 | Component | Purpose |
 |---|---|
+| `btop` | Resource monitor |
+| `fastfetch` | Terminal system snapshot |
 | `ghostty` | Primary terminal |
 | `niri` | Primary compositor |
+| `nvim` | Neovim configuration |
 | `noctalia` | Shell and bar for Niri and Umbriel |
 | `starship` | Shell prompt |
 | `tmux` | Terminal multiplexer |
 | `umbriel` | Experimental compositor |
+| `yazi` | Terminal file manager |
 | `zsh` | Shell configuration and the `keys` helper |
 
 [Git and GitHub SSH setup guide](docs/git-ssh-setup.md)
 
-## Shortcut discovery
+## Doing workflow effectively
 
 After installing the `zsh` component:
 

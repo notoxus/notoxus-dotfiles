@@ -68,6 +68,24 @@
     zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
+    yazi
+    eza
+    lazygit
+    bat
+    delta
+    dust
+
+    # Optional daily applications — uncomment only when you want them:
+    # obs-studio
+    # rnote
+    # gaphor
+    # libreoffice-fresh
+    # zotero
+
+    # BentoPDF is started on demand through the `bentopdf` Zsh alias.
+    # https://github.com/alam00000/bentopdf
+    # Vietnamese input is optional too; install and configure it manually:
+    # https://github.com/LotusInputMethod/fcitx5-lotus
   ];
 
   environment.pathsToLink = [

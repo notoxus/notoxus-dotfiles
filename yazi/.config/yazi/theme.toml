@@ -1,0 +1,63 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+[mgr]
+cwd = { fg = "#7aa2f7", bold = true }
+hovered = { fg = "#1a1b26", bg = "#7aa2f7", bold = true }
+preview_hovered = { bg = "#292e42" }
+find_keyword = { fg = "#e0af68", bold = true, italic = true }
+find_position = { fg = "#bb9af7", bold = true }
+marker_copied = { fg = "#73daca", bg = "#73daca" }
+marker_cut = { fg = "#f7768e", bg = "#f7768e" }
+marker_selected = { fg = "#e0af68", bg = "#e0af68" }
+count_copied = { fg = "#1a1b26", bg = "#73daca" }
+count_cut = { fg = "#1a1b26", bg = "#f7768e" }
+count_selected = { fg = "#1a1b26", bg = "#e0af68" }
+border_style = { fg = "#3b4261" }
+
+[status]
+overall = { fg = "#7aa2f7" }
+sep_left = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+progress_label = { bold = true }
+progress_normal = { fg = "#7aa2f7", bg = "#1a1b26" }
+progress_error = { fg = "#f7768e", bg = "#1a1b26" }
+perm_type = { fg = "#7dcfff" }
+perm_read = { fg = "#9ece6a" }
+perm_write = { fg = "#e0af68" }
+perm_exec = { fg = "#bb9af7" }
+perm_sep = { fg = "#565f89" }
+
+[mode]
+normal_main = { bg = "#7aa2f7", fg = "#1a1b26", bold = true }
+normal_alt = { bg = "#292e42", fg = "#c0caf5" }
+select_main = { bg = "#bb9af7", fg = "#1a1b26", bold = true }
+select_alt = { bg = "#292e42", fg = "#c0caf5" }
+unset_main = { bg = "#e0af68", fg = "#1a1b26", bold = true }
+unset_alt = { bg = "#292e42", fg = "#c0caf5" }
+
+[input]
+border = { fg = "#7aa2f7" }
+value = { fg = "#c0caf5" }
+selected = { reversed = true }
+
+[which]
+cand = { fg = "#7aa2f7" }
+desc = { fg = "#c0caf5" }
+separator = "  "
+separator_style = { fg = "#565f89" }
+
+[help]
+on = { fg = "#7aa2f7" }
+run = { fg = "#c0caf5" }
+hovered = { reversed = true, bold = true }
+footer = { fg = "#1a1b26", bg = "#7aa2f7" }
+
+[filetype]
+rules = [
+  { mime = "image/*", fg = "#bb9af7" },
+  { mime = "{audio,video}/*", fg = "#e0af68" },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio}", fg = "#f7768e" },
+  { mime = "application/{pdf,doc,rtf}", fg = "#9ece6a" },
+  { url = "*", is = "orphan", fg = "#f7768e" },
+  { url = "*/", fg = "#7dcfff" },
+]

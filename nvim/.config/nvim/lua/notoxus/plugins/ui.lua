@@ -52,6 +52,19 @@ return {
   },
 
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    opts = {
+      code = {
+        sign = false,
+      },
+      heading = {
+        sign = false,
+      },
+    },
+  },
+
+  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },

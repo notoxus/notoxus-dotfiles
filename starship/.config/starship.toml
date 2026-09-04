@@ -1,6 +1,6 @@
 # Minimal Tokyo Night prompt for the Zsh workflow.
 add_newline = false
-command_timeout = 1000
+command_timeout = 3000
 
 [character]
 success_symbol = "[❯](bold #9ece6a)"
