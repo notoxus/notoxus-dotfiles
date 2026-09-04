@@ -74,7 +74,8 @@
     bat
     delta
     dust
-
+    gcc
+    gnumake
     # Optional daily applications — uncomment only when you want them:
     # obs-studio
     # rnote
