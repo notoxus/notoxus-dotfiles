@@ -1,16 +1,10 @@
-# Noctalia v5 configuration. Keep this file small and let upstream defaults
-# cover settings that are not part of this dotfiles setup.
+# Noctalia v5 configuration.
 
 [shell]
 corner_radius_scale = 1.0
 telemetry_enabled = false
 polkit_agent = true
 clipboard_enabled = false
-
-# Previous animation preset
-# [shell.animation]
-# enabled = true
-# speed = 1.0
 
 # Present animation preset
 [shell.animation]
@@ -44,13 +38,10 @@ pinned = []
 [wallpaper]
 enabled = true
 fill_mode = "crop"
-# Previous decorative wallpaper transitions.
-# transition = ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"]
-# transition_duration = 1500
 
-# Present
-transition = ["fade"]
-transition_duration = 250
+transition = ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"]
+transition_duration = 1500
+
 transition_on_startup = false
 directory = "~/Pictures/Wallpapers"
 
@@ -123,17 +114,38 @@ enabled = ["notoxus/os-logo"]
 # center = ["workspaces"]
 # end = ["tray", "notifications", "battery", "volume", "brightness", "control-center"]
 
-# Present
+# Previous bottom taskbar.
+# [bar.main]
+# position = "bottom"
+# thickness = 38
+# background_opacity = 0.93
+# radius = 18
+# concave_edge_corners = true
+# margin_ends = 16
+# margin_edge = 0
+# padding = 12
+# widget_spacing = 6
+# scale = 1.0
+# font_scale = 1.0
+# shadow = true
+# auto_hide = false
+# reserve_space = true
+# capsule = false
+# start = ["os-logo", "launcher", "workspaces", "taskbar"]
+# center = ["media"]
+# end = ["tray", "network", "notifications", "battery", "volume", "brightness", "clock", "control-center", "session"]
+
+# Present taskbar
 [bar.main]
 position = "bottom"
-thickness = 38
-background_opacity = 0.93
-radius = 18
+thickness = 42
+background_opacity = 0.96
+radius = 22
 concave_edge_corners = true
-margin_ends = 16
+margin_ends = 12
 margin_edge = 0
-padding = 12
-widget_spacing = 6
+padding = 14
+widget_spacing = 8
 scale = 1.0
 font_scale = 1.0
 shadow = true
@@ -141,8 +153,8 @@ auto_hide = false
 reserve_space = true
 capsule = false
 start = ["os-logo", "launcher", "workspaces", "taskbar"]
-center = ["media"]
-end = ["tray", "network", "notifications", "battery", "volume", "brightness", "clock", "control-center", "session"]
+center = []
+end = ["network", "notifications", "volume", "battery", "clock", "control-center", "session"]
 
 [dock]
 enabled = false
@@ -168,12 +180,27 @@ type = "session"
 [widget.notifications]
 hide_when_no_unread = false
 
+[widget.notifications.actions]
+left = "panel-toggle control-center notifications"
+
 [widget.network]
 show_label = false
 
+[widget.network.actions]
+left = "panel-toggle control-center network"
+
+[widget.volume]
+show_label = false
+
+[widget.volume.actions]
+left = "panel-toggle control-center audio"
+
 [widget.battery]
 display_mode = "graphic"
-show_label = false
+show_label = true
+
+[widget.battery.actions]
+left = "panel-toggle control-center power"
 
 [widget.control-center]
 glyph = "chevron-up"
@@ -202,17 +229,20 @@ pinned = []
 group_by_workspace = false
 show_all_outputs = false
 only_active_workspace = false
-icon_scale = 0.9
-item_spacing = 4
+icon_scale = 1.0 # 0.9
+item_spacing = 6 # 4
 show_window_title = false
 show_active_indicator = true
 active_indicator_color = "primary"
 active_opacity = 1.0
-inactive_opacity = 0.75
+inactive_opacity = 0.7 # 0.75
 
 [widget.os-logo]
 type = "notoxus/os-logo:bar"
 
 [widget.clock]
-format = "{:%H:%M:%S}  {:%a, %b %d}"
+format = "{:%H:%M:%S}"
 tooltip_format = "{:%A, %B %d, %Y}"
+
+[widget.clock.actions]
+left = "panel-toggle control-center calendar"

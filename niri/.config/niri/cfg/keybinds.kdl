@@ -32,6 +32,8 @@ binds {
     XF86MonBrightnessDown               allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
     // ─── Window Movement and Focus ───
+    // Niri handles these mouse gestures natively:
+    // Mod + left-drag moves a window; Mod + right-drag resizes it.
     Mod+Q                               hotkey-overlay-title="Close Window" { close-window; }
 
     Mod+Left                            { focus-column-left; }
@@ -119,6 +121,7 @@ binds {
 
     // ─── Modes ───
     Mod+T                               hotkey-overlay-title="Toggle Floating Window" { toggle-window-floating; }
+    Mod+Shift+T                         hotkey-overlay-title="Switch Focus: Tiling / Floating" { switch-focus-between-floating-and-tiling; }
     Mod+M                               hotkey-overlay-title="Zoom / Restore Window" { maximize-window-to-edges; }
     Mod+F                               hotkey-overlay-title="Toggle Fullscreen" { fullscreen-window; }
     Mod+W                               hotkey-overlay-title="Toggle Tabbed Column" { toggle-column-tabbed-display; }
