@@ -140,6 +140,8 @@ enabled = ["notoxus/os-logo"]
 position = "bottom"
 thickness = 42
 background_opacity = 0.96
+border = "outline_variant"
+border_width = 1.0
 radius = 22
 concave_edge_corners = true
 margin_ends = 12
@@ -148,6 +150,7 @@ padding = 14
 widget_spacing = 8
 scale = 1.0
 font_scale = 1.0
+font_weight = 600
 shadow = true
 auto_hide = false
 reserve_space = true
@@ -191,6 +194,11 @@ left = "panel-toggle control-center network"
 
 [widget.volume]
 show_label = false
+capsule = true
+capsule_fill = "surface_container_high"
+capsule_opacity = 0.84
+capsule_radius = 14
+capsule_padding = 7
 
 [widget.volume.actions]
 left = "panel-toggle control-center audio"
@@ -229,6 +237,11 @@ pinned = []
 group_by_workspace = false
 show_all_outputs = false
 only_active_workspace = false
+capsule = true
+capsule_fill = "surface_container"
+capsule_opacity = 0.78
+capsule_radius = 12
+capsule_padding = 5
 icon_scale = 1.0 # 0.9
 item_spacing = 6 # 4
 show_window_title = false
